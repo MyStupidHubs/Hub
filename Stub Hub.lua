@@ -50,6 +50,7 @@ game:GetService("Players").LocalPlayer.Idled:connect(function()
    vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
 end)
+end)
 
 local Tab = Window:NewTab("Simulator Games")
 local Section = Tab:NewSection("Lifting Simulator [Mine]")
