@@ -2222,7 +2222,7 @@ end)
 end)
 
 local Tab = Window:NewTab("GUI Part 2")
-local Section = Tab:NewSection("Click the button")
+local Section = Tab:NewSection("GUI Part 2")
 Section:NewButton("Part 2", "Just click this shitass button", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/StubHubScript/StubHub2/main/StubHub2',true))()
 end)
