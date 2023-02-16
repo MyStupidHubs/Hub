@@ -42,7 +42,7 @@ game:GetService("Players").LocalPlayer.Idled:connect(function()
    vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
 	
-Section:NewButton("Anti afk", "Don't let the game kick you for staying afk", function()	
+Section:NewButton("Anti afk 2", "Don't let the game kick you for staying afk (Other way)", function()	
     local vu = game:GetService("VirtualUser")
 game:GetService("Players").LocalPlayer.Idled:connect(function()
    vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
