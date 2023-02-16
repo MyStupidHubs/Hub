@@ -2221,85 +2221,8 @@ end)
     end
 end)
 
-local Tab = Window:NewTab("One Piece Tycoon")
-local Section = Tab:NewSection("Auto Click First Dropper [Not Mine]")
-Section:NewButton("World Government", "it will automatically click on the first dropper", function()
-    _G.toggle = true
-while _G.toggle do
-wait()
-fireclickdetector(game:GetService("Workspace")["Zednov's Tycoon Kit"].Tycoons["World Government"].PurchasedObjects.Mine.Clicker.ClickDetector)
-end
-end)
-Section:NewButton("Arlong Pirates", "it will automatically click on the first dropper", function()
-    _G.toggle = true
-while _G.toggle do
-wait()
-fireclickdetector(game:GetService("Workspace")["Zednov's Tycoon Kit"].Tycoons["Arlong Pirates"].PurchasedObjects.Mine.Clicker.ClickDetector)
-end
-end)
-Section:NewButton("Straw Hat Pirates", "it will automatically click on the first dropper", function()
-    _G.toggle = true
-while _G.toggle do
-wait()
-fireclickdetector(game:GetService("Workspace")["Zednov's Tycoon Kit"].Tycoons["Straw Hat Pirates"].PurchasedObjects.Mine.Clicker.ClickDetector)
-end
-end)
-Section:NewButton("Blackbeard Pirates", "it will automatically click on the first dropper", function()
-    _G.toggle = true
-while _G.toggle do
-wait()
-fireclickdetector(game:GetService("Workspace")["Zednov's Tycoon Kit"].Tycoons["Blackbeard Pirates"].PurchasedObjects.Mine.Clicker.ClickDetector)
-end
-end)
-Section:NewButton("Shichibukai", "it will automatically click on the first dropper", function()
-    _G.toggle = true
-while _G.toggle do
-wait()
-fireclickdetector(game:GetService("Workspace")["Zednov's Tycoon Kit"].Tycoons["Shichibukai"].PurchasedObjects.Mine.Clicker.ClickDetector)
-end
-end)
-Section:NewButton("Red Haired Pirates", "it will automatically click on the first dropper", function()
-    _G.toggle = true
-while _G.toggle do
-wait()
-fireclickdetector(game:GetService("Workspace")["Zednov's Tycoon Kit"].Tycoons["Red Haired Pirates"].PurchasedObjects.Mine.Clicker.ClickDetector)
-end
-end)
-Section:NewButton("Whitebeard Pirates", "it will automatically click on the first dropper", function()
-    _G.toggle = true
-while _G.toggle do
-wait()
-fireclickdetector(game:GetService("Workspace")["Zednov's Tycoon Kit"].Tycoons["Whitebeard Pirates"].PurchasedObjects.Mine.Clicker.ClickDetector)
-end
-end)
-Section:NewButton("Big Mom Pirates", "it will automatically click on the first dropper", function()
-    _G.toggle = true
-while _G.toggle do
-wait()
-fireclickdetector(game:GetService("Workspace")["Zednov's Tycoon Kit"].Tycoons["Big Mom Pirates"].PurchasedObjects.Mine.Clicker.ClickDetector)
-end
-end)
-local Section = Tab:NewSection("Fruit and Haki Grabber [Not Mine]")
-Section:NewToggle("Fruit and Haki", "Automatically pick up Fruits and Hakis", function(state)
-    if state then
-        _G.toggle = true
-while _G.toggle do
-wait()
-for _,v in pairs(workspace.FruitStorage:GetDescendants()) do
-if v:IsA("ClickDetector") then
-fireclickdetector(v)
-    else
-        _G.toggle = false
-while _G.toggle do
-wait()
-for _,v in pairs(workspace.FruitStorage:GetDescendants()) do
-if v:IsA("ClickDetector") then
-fireclickdetector(v)
-end
-end
-end
-end
-end
-end
-end
+local Tab = Window:NewTab("GUI Part 2")
+local Section = Tab:NewSection("Click the button")
+Section:NewButton("Part 2", "Just click this shitass button", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/StubHubScript/StubHub2/main/StubHub2',true))()
 end)
