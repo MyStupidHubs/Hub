@@ -550,6 +550,65 @@ for _,v in pairs(game.Players.LocalPlayer.Weapons:GetDescendants()) do
 	end
 end)
 
+local Section = Tab:NewSection("Undertale Legacy Mania")
+Section:NewButton("Auto Food", "Automatically buys the best food with the gold you have", function()
+local args = {
+    [1] = game:GetService("Lighting").Food.ButterscotchPie,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.ButterscotchPie,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.SuperHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.LHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.LHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.LHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.LHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.MTTSteak,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+end)
+
 local Tab = Window:NewTab("RPG Games")
 local Section = Tab:NewSection("Everycyans Kit [MISC] [+ or - Mine]")
 Section:NewButton("Get All Weapons", ">>>BUY<<< all weapon that your money can buy", function()
