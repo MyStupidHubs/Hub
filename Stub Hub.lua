@@ -551,7 +551,7 @@ for _,v in pairs(game.Players.LocalPlayer.Weapons:GetDescendants()) do
 end)
 
 local Section = Tab:NewSection("Undertale Legacy Mania")
-Section:NewButton("Auto Food", "Automatically buys the best food with the gold you have", function()
+Section:NewButton("Auto Food [Mine]", "Automatically buys the best food with the gold you have", function()
 local args = {
     [1] = game:GetService("Lighting").Food.ButterscotchPie,
     [2] = "Food"
