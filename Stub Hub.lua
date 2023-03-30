@@ -635,16 +635,39 @@ end)
 
 local Section = Tab:NewSection("Bear Alpha Auto Farm [Mine]")
 Section:NewButton("Auto Farm Coin", "Auto Farm Coin", function()
-    local newThread = coroutine.create(function()
-wait()
-game.Workspace.Obby.Quidz.CanCollide = false
+    local teleportEnabled = true
+local teleportLocation = CFrame.new(243.389191, 10.4933968, -928.5, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+
+local function teleportPlayer(player)
+    player.Character.HumanoidRootPart.CFrame = teleportLocation
+end
+
+game:GetService("Players").PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        wait(1)
+        if teleportEnabled then
+            teleportPlayer(player)
+        end
+    end)
 end)
 
-coroutine.resume(newThread)
-while true do wait() game.Workspace.Obby.Quidz.CFrame = (game.Players.LocalPlayer.Character.UpperTorso.CFrame)
-wait()
-game.Players.LocalPlayer.Character.Humanoid.Jump = false
+game:GetService("UserInputService").InputBegan:Connect(function(input, isTyping)
+    if input.KeyCode == Enum.KeyCode.E and not isTyping then
+        teleportEnabled = not teleportEnabled
+    end
+end)
+
+while true do
+    wait()
+    if teleportEnabled then
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            if player.Character then
+                teleportPlayer(player)
+            end
+        end
+    end
 end
+
 end)
 
 local Tab = Window:NewTab("EBS")
