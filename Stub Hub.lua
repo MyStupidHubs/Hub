@@ -621,21 +621,8 @@ end)
 
 local Tab = Window:NewTab("Bear")
 local Section = Tab:NewSection("Bear* Auto Farm [Mine]")
-Section:NewButton("Auto Farm Coin", "Auto Farm Coin", function()
-local newThread = coroutine.create(function()
-wait()
-game.Workspace.Obby.WinPart.CanCollide = false
-end)
-
-coroutine.resume(newThread)
-while true do wait() game.Workspace.Obby.WinPart.CFrame = (game.Players.LocalPlayer.Character.UpperTorso.CFrame)
-wait()
-end
-end)
-
-local Section = Tab:NewSection("Bear Alpha Auto Farm [Mine]")
-Section:NewButton("Auto Farm Coin", "Auto Farm Coin", function()
-    local teleportEnabled = true
+Section:NewButton("Auto Farm Coin", "Script fixed, now to enable or disable click E.", function()
+local teleportEnabled = true
 local teleportLocation = CFrame.new(243.389191, 10.4933968, -928.5, 0, 0, 1, 0, 1, -0, -1, 0, 0)
 
 local function teleportPlayer(player)
@@ -670,38 +657,17 @@ end
 
 end)
 
-local Tab = Window:NewTab("EBS")
-local Section = Tab:NewSection("Kill Farm [Not Mine]")
-Section:NewButton("Kill Farm", "Kill Everyone and anothers hot functions", function()
-    loadstring(game:HttpGetAsync("https://pastebin.com/raw/A34Z7gMx"))()
-end)
-local Section = Tab:NewSection("GUIS [Not Mine]")
-Section:NewButton("GUI MaxFlubber", "A MaxFlubber game GUI", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/juNstring/LuaProjects/main/nitro.club/ExercitoCu.lua'))()
-end)
-Section:NewButton("GUI Auto farm MaxFlubber", "A MaxFlubber game Auto Farm GUI", function()
-    loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/AutoFarmMax-Build.lua"),true))()
+local Section = Tab:NewSection("Bear Alpha Auto Farm [Mine]")
+Section:NewButton("Auto Farm Coin", "Auto Farm Coin", function()
+        local newThread = coroutine.create(function()
+wait()
+game.Workspace.Obby.Quidz.CanCollide = false
 end)
 
-Section:NewButton("GUI Ageniio", "A Ageniio game GUI", function()
-print(":TestaDeAfiarPica: --best emoji in game leaks server")
-game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Scripted By MaxFlubber", "All")
-local TrabalhoFolder = game:GetService("Workspace").Mapa.Outros.Trabalhos
-local Pos = {
-    CFrame.new(527, 169, -141),
-    CFrame.new(527, 169, -132),
-    CFrame.new(527, 169, -151),
-    CFrame.new(561, 169, -132),
-    CFrame.new(561, 169, -141)
-    
-}
-while task.wait(0.1)do
-    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(525, 167, -81)
-    task.wait(0.1)
-    fireproximityprompt(TrabalhoFolder.Mercado["Tool Giver"].giver.ProximityPrompt)
-    task.wait(0.1)
-    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Pos[math.random(1,#Pos)]
-    task.wait(0.2)
+coroutine.resume(newThread)
+while true do wait() game.Workspace.Obby.Quidz.CFrame = (game.Players.LocalPlayer.Character.UpperTorso.CFrame)
+wait()
+game.Players.LocalPlayer.Character.Humanoid.Jump = false
 end
 end)
 local Section = Tab:NewSection("Training [Not Mine]")
