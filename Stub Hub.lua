@@ -751,7 +751,32 @@ for i,v in pairs(workspace:GetDescendants()) do
   end
 end
 end)
+local Section = Tab:NewSection("Kromers [BIG SHOT]")
+Section:NewButton("Auto Buy and Sell", "This automatically buys and sells your kromers", function()
+    -- Function to click a ClickDetector
+local function clickClickDetector(clickDetector)
+    if clickDetector then
+        fireclickdetector(clickDetector)
+    end
+end
 
+-- Main loop to continuously check and perform actions
+while true do
+    wait(1) -- Adjust the wait time as needed to control how frequently the script checks
+
+    -- Get the TextLabel value
+    local textLabelValue = tonumber(workspace.KromerDisplay.SurfaceGui.TextLabel.Text:match("%d+"))
+
+    -- Check if the value is below 2000
+    if textLabelValue and textLabelValue < 3000 then
+        -- Click "Buy Kromer" ClickDetector
+        clickClickDetector(workspace["Buy Kromer"].ClickDetector)
+    elseif textLabelValue and textLabelValue > 4000 then
+        -- Click "Sell Kromer" ClickDetector
+        clickClickDetector(workspace.SellKromer.ClickDetector)
+    end
+end
+end)
 local Section = Tab:NewSection("Teleports [Mine]")
 Section:NewButton("Tem shop", "Teleports you to Tem shop", function()
 local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
