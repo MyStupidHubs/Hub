@@ -753,7 +753,20 @@ for _, player in pairs(game.Players:GetPlayers()) do
 end
 end)
 Section:NewButton("Visable Hitbox", "It makes the hitbox visable", function()
+-- Script para tornar jogadores visíveis no Roblox
 
+-- Itera sobre todos os jogadores no jogo
+for _, player in pairs(game.Players:GetPlayers()) do
+    local character = player.Character
+    
+    -- Verifica se o jogador tem um personagem e se o personagem tem um HumanoidRootPart
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        local humanoidRootPart = character.HumanoidRootPart
+        
+        -- Define a transparência como 0 para tornar o jogador visível
+        humanoidRootPart.Transparency = 0
+    end
+end
 end)
 Section:NewButton("Back To Default", "NPCS hitbox returns to normal", function()
 local x = 3
