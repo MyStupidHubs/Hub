@@ -742,18 +742,18 @@ for i,v in pairs(workspace:GetDescendants()) do
 end
 end)
 Section:NewButton("Hitbox Expander [XYZ = 300]", "It increases the NPCS hitbox", function()
-local x = 300
-local y = 300
-local z = 300
-
-for i,v in pairs(workspace:GetDescendants()) do
-   if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-       local h = v.Parent.HumanoidRootPart
-       h.Size = Vector3.new(x,y,z)
-       h.Transparency = 1
-       v.Parent.HumanoidRootPart.CanCollide = false
-   end
+for _, player in pairs(game.Players:GetPlayers()) do
+    local character = player.Character
+    
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        local humanoidRootPart = character.HumanoidRootPart
+        
+        humanoidRootPart.Transparency = 0
+    end
 end
+end)
+Section:NewButton("Visable Hitbox", "It makes the hitbox visable", function()
+
 end)
 Section:NewButton("Back To Default", "NPCS hitbox returns to normal", function()
 local x = 3
