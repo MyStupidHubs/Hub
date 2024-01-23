@@ -712,11 +712,11 @@ _G.Jump = true -- se quiser desativar o pulo deixa isso como false
 end)
 
 local Tab = Window:NewTab("U3BB")
-local Section = Tab:NewSection("Hitbox Expander [Not Mine]")
-Section:NewButton("Hitbox Expander [XYZ = 800]", "It increases the NPCS hitbox", function()
-local x = 800
-local y = 800
-local z = 800
+local Section = Tab:NewSection("Hitbox [Not Mine]")
+Section:NewSlider("Hitbox Expander", "It increases the NPCS hitbox", 1000, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+local x = s
+local y = s
+local z = s
 
 for i,v in pairs(workspace:GetDescendants()) do
    if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
@@ -725,41 +725,6 @@ for i,v in pairs(workspace:GetDescendants()) do
        h.Transparency = 1
        v.Parent.HumanoidRootPart.CanCollide = false
    end
-end
-end)
-Section:NewButton("Hitbox Expander [XYZ = 500]", "It increases the NPCS hitbox", function()
-local x = 500
-local y = 500
-local z = 500
-
-for i,v in pairs(workspace:GetDescendants()) do
-   if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-       local h = v.Parent.HumanoidRootPart
-       h.Size = Vector3.new(x,y,z)
-       h.Transparency = 1
-       v.Parent.HumanoidRootPart.CanCollide = false
-   end
-end
-end)
-Section:NewButton("Hitbox Expander [XYZ = 300]", "It increases the NPCS hitbox", function()
-for _, player in pairs(game.Players:GetPlayers()) do
-    local character = player.Character
-    
-    if character and character:FindFirstChild("HumanoidRootPart") then
-        local humanoidRootPart = character.HumanoidRootPart
-        
-        humanoidRootPart.Transparency = 0
-    end
-end
-end)
-Section:NewButton("Visable Hitbox", "It makes the hitbox visable", function()
-local transparency = 0 -- 0 significa opaco, 1 significa transparente
-for i,v in pairs(workspace:GetDescendants()) do
-  if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-    local h = v.Parent.HumanoidRootPart
-    h.Transparency = transparency -- usar a variável
-    h.CanCollide = false
-  end
 end
 end)
 Section:NewButton("Back To Default", "NPCS hitbox returns to normal", function()
@@ -774,6 +739,16 @@ for i,v in pairs(workspace:GetDescendants()) do
        h.Transparency = 1
        v.Parent.HumanoidRootPart.CanCollide = false
    end
+end
+end)
+Section:NewButton("Visable Hitbox", "It makes the hitbox visable", function()
+local transparency = 0 -- 0 significa opaco, 1 significa transparente
+for i,v in pairs(workspace:GetDescendants()) do
+  if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
+    local h = v.Parent.HumanoidRootPart
+    h.Transparency = transparency -- usar a variável
+    h.CanCollide = false
+  end
 end
 end)
 
