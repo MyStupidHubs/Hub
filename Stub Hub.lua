@@ -722,7 +722,7 @@ for i,v in pairs(workspace:GetDescendants()) do
    if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
        local h = v.Parent.HumanoidRootPart
        h.Size = Vector3.new(x,y,z)
-       h.Transparency = 1
+       h.Transparency = 0
        v.Parent.HumanoidRootPart.CanCollide = false
    end
 end
@@ -736,13 +736,13 @@ for i,v in pairs(workspace:GetDescendants()) do
    if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
        local h = v.Parent.HumanoidRootPart
        h.Size = Vector3.new(x,y,z)
-       h.Transparency = 1
+       h.Transparency = 0
        v.Parent.HumanoidRootPart.CanCollide = false
    end
 end
 end)
-Section:NewButton("Visable Hitbox", "It makes the hitbox visable", function()
-local transparency = 0 -- 0 significa opaco, 1 significa transparente
+Section:NewButton("Invisable Hitbox", "It makes the hitbox invisable", function()
+local transparency = 1 -- 0 significa opaco, 1 significa transparente
 for i,v in pairs(workspace:GetDescendants()) do
   if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
     local h = v.Parent.HumanoidRootPart
