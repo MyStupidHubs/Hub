@@ -753,27 +753,17 @@ end
 end)
 local Section = Tab:NewSection("Kromers [BIG SHOT]")
 Section:NewButton("Auto Buy and Sell", "This automatically buys and sells your kromers", function()
-    -- Function to click a ClickDetector
-local function clickClickDetector(clickDetector)
-    if clickDetector then
-        fireclickdetector(clickDetector)
-    end
-end
-
--- Main loop to continuously check and perform actions
 while true do
-    wait(1) -- Adjust the wait time as needed to control how frequently the script checks
+    wait(0) -- Reduzi o tempo de espera para 0.1 segundo, ajuste conforme necessário
 
-    -- Get the TextLabel value
     local textLabelValue = tonumber(workspace.KromerDisplay.SurfaceGui.TextLabel.Text:match("%d+"))
 
-    -- Check if the value is below 2000
-    if textLabelValue and textLabelValue < 3000 then
-        -- Click "Buy Kromer" ClickDetector
-        clickClickDetector(workspace["Buy Kromer"].ClickDetector)
-    elseif textLabelValue and textLabelValue > 4000 then
-        -- Click "Sell Kromer" ClickDetector
-        clickClickDetector(workspace.SellKromer.ClickDetector)
+    if textLabelValue then
+        if textLabelValue < 3000 then
+            fireclickdetector(workspace["Buy Kromer"].ClickDetector)
+        elseif textLabelValue > 4000 then
+            fireclickdetector(workspace.SellKromer.ClickDetector)
+        end
     end
 end
 end)
