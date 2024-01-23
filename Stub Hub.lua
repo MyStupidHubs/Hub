@@ -753,15 +753,13 @@ for _, player in pairs(game.Players:GetPlayers()) do
 end
 end)
 Section:NewButton("Visable Hitbox", "It makes the hitbox visable", function()
-local transparencyValue = 0  -- Defina o valor de transparência desejado (0 é totalmente visível, 1 é totalmente transparente)
-
-for _,v in pairs(workspace:GetDescendants()) do
-    if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-        local humanoidRootPart = v.Parent.HumanoidRootPart
-        humanoidRootPart.Size = Vector3.new(x, y, z)
-        humanoidRootPart.Transparency = transparencyValue
-        humanoidRootPart.CanCollide = false
-    end
+local transparency = 0 -- 0 significa opaco, 1 significa transparente
+for i,v in pairs(workspace:GetDescendants()) do
+  if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
+    local h = v.Parent.HumanoidRootPart
+    h.Transparency = transparency -- usar a variável
+    h.CanCollide = false
+  end
 end
 end)
 Section:NewButton("Back To Default", "NPCS hitbox returns to normal", function()
