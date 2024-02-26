@@ -718,13 +718,26 @@ local x = s
 local y = s
 local z = s
 
+local function AdjustCharacterPositionRelativeToHitbox(character, hitboxSize)
+    local rootPart = character:WaitForChild("HumanoidRootPart")
+    local currentPos = rootPart.Position
+    local halfSize = hitboxSize / 2
+
+    -- Determina a nova posição baseada na borda da hitbox
+    local newPos = Vector3.new(math.sign(currentPos.X) * halfSize.X, rootPart.Position.Y, math.sign(currentPos.Z) * halfSize.Z)
+    rootPart.Position = newPos
+end
+
 for i,v in pairs(workspace:GetDescendants()) do
-   if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-       local h = v.Parent.HumanoidRootPart
-       h.Size = Vector3.new(x,y,z)
-       h.Transparency = 0
-       v.Parent.HumanoidRootPart.CanCollide = false
-   end
+    if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
+        local h = v.Parent.HumanoidRootPart
+        h.Size = Vector3.new(x, y, z)
+        h.Transparency = 0
+        v.Parent.HumanoidRootPart.CanCollide = false
+
+        -- Ajusta a posição do jogador para a borda da hitbox
+        AdjustCharacterPositionRelativeToHitbox(v.Parent, Vector3.new(x, y, z))
+    end
 end
 end)
 Section:NewButton("Back To Default", "NPCS hitbox returns to normal", function()
