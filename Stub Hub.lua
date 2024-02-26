@@ -714,6 +714,7 @@ end)
 local Tab = Window:NewTab("U3BB")
 local Section = Tab:NewSection("Hitbox [Not Mine]")
 Section:NewSlider("Hitbox Expander", "It increases the NPCS hitbox", 1000, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+local s = s
 local x = s
 local y = s
 local z = s
