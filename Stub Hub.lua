@@ -728,9 +728,9 @@ for i,v in pairs(workspace:GetDescendants()) do
 end
 end)
 Section:NewButton("Back To Default", "NPCS hitbox returns to normal", function()
-local x = s
-local y = s
-local z = s
+local x = 2
+local y = 2
+local z = 2
 
 for i,v in pairs(workspace:GetDescendants()) do
    if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
