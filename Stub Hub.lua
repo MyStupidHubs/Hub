@@ -793,7 +793,7 @@ fireclickdetector(clickdetector)
 end
 end)
 local Section = Tab:NewSection("Gold Farm [Mine]")
-Section:NewButton("Dio Duck", "Teleport to Dio Duck, when you get the Soul Sword go to Dust", function()
+Section:NewButton("Dio Duck", "When you get the Soul Sword teleport to Dust", function()
 local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
 local location = CFrame.new(-22929.1504, 98.7203217, 11293.6221, 0, 0, 1, 0, 1, -0, -1, 0, 0)
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
