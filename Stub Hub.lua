@@ -765,21 +765,49 @@ for i,v in pairs(workspace:GetDescendants()) do
   end
 end
 end)
-local Section = Tab:NewSection("Kromers [BIG SHOT]")
-Section:NewButton("Auto Buy and Sell", "This automatically buys and sells your kromers", function()
+local Section = Tab:NewSection("Buy Foods [+ or - Mine]")
+Section:NewButton("Buy one Steak", "Buy one Sneak", function()
+    local clickdetector = Workspace.FaceStake.ClickDetector -- path to the click detector
+
+fireclickdetector(clickdetector)
+end)
+Section:NewButton("Buy one Hush Puppy", "Buy one Hush Puppy", function()
+    local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
+
+fireclickdetector(clickdetector)
+end)
+Section:NewButton("Buy infinities Steaks", "Buy infinities Sneaks", function()
 while true do
-    wait(0) -- Reduzi o tempo de espera para 0.1 segundo, ajuste conforme necessário
+wait()
+local clickdetector = Workspace.FaceStake.ClickDetector -- path to the click detector
 
-    local textLabelValue = tonumber(workspace.KromerDisplay.SurfaceGui.TextLabel.Text:match("%d+"))
-
-    if textLabelValue then
-        if textLabelValue < 3000 then
-            fireclickdetector(workspace["Buy Kromer"].ClickDetector)
-        elseif textLabelValue > 4000 then
-            fireclickdetector(workspace.SellKromer.ClickDetector)
-        end
-    end
+fireclickdetector(clickdetector)
 end
+end)
+Section:NewButton("Buy infinities Hush Puppys", "Buy infinities Hush Puppys", function()
+while true do
+wait()
+local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
+
+fireclickdetector(clickdetector)
+end
+end)
+local Section = Tab:NewSection("Gold Farm [Mine]")
+Section:NewButton("Dio Duck", "Teleport to Dio Duck, when you get the Soul Sword go to Dust", function()
+local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+local location = CFrame.new(-22929.1504, 98.7203217, 11293.6221, 0, 0, 1, 0, 1, -0, -1, 0, 0)
+local humanoid = game.Players.LocalPlayer.Character.Humanoid
+humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+wait(0.1)
+pl.CFrame = location
+end)
+Section:NewButton("Dust Sans", "Now kill him with the Soul Sword, repeat", function()
+local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
+local location = CFrame.new(-2412.40039, -48.4226799, -972.48999, -0.766061664, 0, -0.642767608, 0, 1, 0, 0.642767608, 0, -0.766061664)
+local humanoid = game.Players.LocalPlayer.Character.Humanoid
+humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+wait(0.1)
+pl.CFrame = location
 end)
 local Section = Tab:NewSection("Teleports [Mine]")
 Section:NewButton("Tem shop", "Teleports you to Tem shop", function()
@@ -912,32 +940,20 @@ humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 wait(0.1)
 pl.CFrame = location
 end)
-
-local Section = Tab:NewSection("Buy Foods [+ or - Mine]")
-Section:NewButton("Buy one Steak", "Buy one Sneak", function()
-    local clickdetector = Workspace.FaceStake.ClickDetector -- path to the click detector
-
-fireclickdetector(clickdetector)
-end)
-Section:NewButton("Buy one Hush Puppy", "Buy one Hush Puppy", function()
-    local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
-
-fireclickdetector(clickdetector)
-end)
-Section:NewButton("Buy infinities Steaks", "Buy infinities Sneaks", function()
+local Section = Tab:NewSection("Kromers [BIG SHOT]")
+Section:NewButton("Auto Buy and Sell", "This automatically buys and sells your kromers", function()
 while true do
-wait()
-local clickdetector = Workspace.FaceStake.ClickDetector -- path to the click detector
+    wait(0) -- Reduzi o tempo de espera para 0.1 segundo, ajuste conforme necessário
 
-fireclickdetector(clickdetector)
-end
-end)
-Section:NewButton("Buy infinities Hush Puppys", "Buy infinities Hush Puppys", function()
-while true do
-wait()
-local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
+    local textLabelValue = tonumber(workspace.KromerDisplay.SurfaceGui.TextLabel.Text:match("%d+"))
 
-fireclickdetector(clickdetector)
+    if textLabelValue then
+        if textLabelValue < 3000 then
+            fireclickdetector(workspace["Buy Kromer"].ClickDetector)
+        elseif textLabelValue > 4000 then
+            fireclickdetector(workspace.SellKromer.ClickDetector)
+        end
+    end
 end
 end)
 
