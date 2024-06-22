@@ -713,57 +713,45 @@ end)
 
 local Tab = Window:NewTab("U3BB")
 local Section = Tab:NewSection("Hitbox [Not Mine]")
-Section:NewSlider("Hitbox Expander", "It increases the NPCS hitbox", 1000, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
-local x = s
-local y = s
-local z = s
+Section:NewButton("Kill Aura", "Any attack you make will hit the Boss", function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local runService = game:GetService("RunService")
 
-for i,v in pairs(workspace:GetDescendants()) do
-  if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-    local h = v.Parent.HumanoidRootPart
-    h.Size = Vector3.new(x,y,z)
-    h.Transparency = 0
-    v.Parent.HumanoidRootPart.CanCollide = false
-  end
-end
+-- Armazenar referência ao braço direito
+local rightArm = character:FindFirstChild("Right Arm") or character:FindFirstChild("RightHand")
+character.ChildAdded:Connect(function(child)
+    if child.Name == "Right Arm" or child.Name == "RightHand" then
+        rightArm = child
+    end
 end)
-Section:NewButton("Back To Default", "NPCS hitbox returns to normal", function()
-local x = 2
-local y = 2
-local z = 2
 
-for i,v in pairs(workspace:GetDescendants()) do
-   if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-       local h = v.Parent.HumanoidRootPart
-       h.Size = Vector3.new(x,y,z)
-       h.Transparency = 1
-       v.Parent.HumanoidRootPart.CanCollide = false
-   end
-end
-end)
-Section:NewButton("Back To default Pursuer", "NPCS hitbox returns to normal", function()
-local x = 4
-local y = 4
-local z = 4
+-- Função para ajustar o HumanoidRootPart
+local function adjustHumanoidRootPart(humanoidRootPart, targetPosition)
+    local startPosition = humanoidRootPart.Position
+    local direction = (targetPosition - startPosition).unit
+    local distance = (targetPosition - startPosition).Magnitude
 
-for i,v in pairs(workspace:GetDescendants()) do
-   if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-       local h = v.Parent.HumanoidRootPart
-       h.Size = Vector3.new(x,y,z)
-       h.Transparency = 1
-       v.Parent.HumanoidRootPart.CanCollide = false
-   end
+    humanoidRootPart.Size = Vector3.new(distance, humanoidRootPart.Size.Y, humanoidRootPart.Size.Z)
+    humanoidRootPart.CFrame = CFrame.new(startPosition, targetPosition) * CFrame.new(0, 0, -distance / 2)
+
+    humanoidRootPart.Transparency = 1
+    humanoidRootPart.CanCollide = false
 end
+
+-- Conectar ao evento Heartbeat para atualizações contínuas
+runService.Heartbeat:Connect(function()
+    if not rightArm then return end
+
+    local rightArmPosition = rightArm.Position
+
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Parent.Name ~= player.Name then
+            local humanoidRootPart = v.Parent.HumanoidRootPart
+            adjustHumanoidRootPart(humanoidRootPart, rightArmPosition)
+        end
+    end
 end)
-Section:NewButton("Invisable Hitbox", "It makes the hitbox invisable", function()
-local transparency = 1 -- 0 significa opaco, 1 significa transparente
-for i,v in pairs(workspace:GetDescendants()) do
-  if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-    local h = v.Parent.HumanoidRootPart
-    h.Transparency = transparency -- usar a variável
-    h.CanCollide = false
-  end
-end
 end)
 local Section = Tab:NewSection("Buy Foods [+ or - Mine]")
 Section:NewButton("Buy one Steak", "Buy one Sneak", function()
