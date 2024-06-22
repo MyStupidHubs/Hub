@@ -715,43 +715,31 @@ local Tab = Window:NewTab("U3BB")
 local Section = Tab:NewSection("Hitbox [Not Mine]")
 Section:NewButton("Kill Aura", "Any attack you make will hit the Boss", function()
 local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local runService = game:GetService("RunService")
+local tool = player.Character:FindFirstChildOfClass("Tool")
 
--- Armazenar referência ao braço direito
-local rightArm = character:FindFirstChild("Right Arm") or character:FindFirstChild("RightHand")
-character.ChildAdded:Connect(function(child)
-    if child.Name == "Right Arm" or child.Name == "RightHand" then
-        rightArm = child
+function updateHumanoidRootParts()
+    if tool and tool:FindFirstChild("Handle") then
+        local handle = tool.Handle
+
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= player.Name then
+                local h = v.Parent.HumanoidRootPart
+                h.Size = Vector3.new(2, 2, 2)  -- Mantenha o tamanho desejado
+                h.Transparency = 1
+                h.CanCollide = false
+                
+                -- Ajuste a posição e a orientação do HumanoidRootPart para corresponder ao CFrame do handle com um deslocamento para a direita
+                local offset = CFrame.new(2, 0, 0)  -- Deslocamento para a direita
+                h.CFrame = handle.CFrame * offset
+            end
+        end
+    else
+        warn("O jogador não está segurando uma ferramenta com um Handle.")
     end
-end)
-
--- Função para ajustar o HumanoidRootPart
-local function adjustHumanoidRootPart(humanoidRootPart, targetPosition)
-    local startPosition = humanoidRootPart.Position
-    local direction = (targetPosition - startPosition).unit
-    local distance = (targetPosition - startPosition).Magnitude
-
-    humanoidRootPart.Size = Vector3.new(distance, humanoidRootPart.Size.Y, humanoidRootPart.Size.Z)
-    humanoidRootPart.CFrame = CFrame.new(startPosition, targetPosition) * CFrame.new(0, 0, -distance / 2)
-
-    humanoidRootPart.Transparency = 1
-    humanoidRootPart.CanCollide = false
 end
 
--- Conectar ao evento Heartbeat para atualizações contínuas
-runService.Heartbeat:Connect(function()
-    if not rightArm then return end
-
-    local rightArmPosition = rightArm.Position
-
-    for _, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Parent.Name ~= player.Name then
-            local humanoidRootPart = v.Parent.HumanoidRootPart
-            adjustHumanoidRootPart(humanoidRootPart, rightArmPosition)
-        end
-    end
-end)
+-- Use RunService para executar a função a cada frame
+game:GetService("RunService").RenderStepped:Connect(updateHumanoidRootParts)
 end)
 Section:NewButton("Boss Health Bar", "Simply a bar like a boss fight.", function()
 -- Referências necessárias
