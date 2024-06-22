@@ -713,33 +713,57 @@ end)
 
 local Tab = Window:NewTab("U3BB")
 local Section = Tab:NewSection("Hitbox [Not Mine]")
-Section:NewButton("Kill Aura", "Any attack you make will hit the Boss", function()
-local player = game.Players.LocalPlayer
-local tool = player.Character:FindFirstChildOfClass("Tool")
+Section:NewSlider("Hitbox Expander", "It increases the NPCS hitbox", 1000, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+local x = s
+local y = s
+local z = s
 
-function updateHumanoidRootParts()
-    if tool and tool:FindFirstChild("Handle") then
-        local handle = tool.Handle
-
-        for i, v in pairs(workspace:GetDescendants()) do
-            if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= player.Name then
-                local h = v.Parent.HumanoidRootPart
-                h.Size = Vector3.new(2, 2, 2)  -- Mantenha o tamanho desejado
-                h.Transparency = 1
-                h.CanCollide = false
-                
-                -- Ajuste a posição e a orientação do HumanoidRootPart para corresponder ao CFrame do handle com um deslocamento para a direita
-                local offset = CFrame.new(2, 0, 0)  -- Deslocamento para a direita
-                h.CFrame = handle.CFrame * offset
-            end
-        end
-    else
-        warn("O jogador não está segurando uma ferramenta com um Handle.")
-    end
+for i,v in pairs(workspace:GetDescendants()) do
+  if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
+    local h = v.Parent.HumanoidRootPart
+    h.Size = Vector3.new(x,y,z)
+    h.Transparency = 0
+    v.Parent.HumanoidRootPart.CanCollide = false
+  end
 end
+end)
+Section:NewButton("Back To Default", "NPCS hitbox returns to normal", function()
+local x = 2
+local y = 2
+local z = 2
 
--- Use RunService para executar a função a cada frame
-game:GetService("RunService").RenderStepped:Connect(updateHumanoidRootParts)
+for i,v in pairs(workspace:GetDescendants()) do
+   if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
+       local h = v.Parent.HumanoidRootPart
+       h.Size = Vector3.new(x,y,z)
+       h.Transparency = 1
+       v.Parent.HumanoidRootPart.CanCollide = false
+   end
+end
+end)
+Section:NewButton("Back To default Pursuer", "NPCS hitbox returns to normal", function()
+local x = 4
+local y = 4
+local z = 4
+
+for i,v in pairs(workspace:GetDescendants()) do
+   if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
+       local h = v.Parent.HumanoidRootPart
+       h.Size = Vector3.new(x,y,z)
+       h.Transparency = 1
+       v.Parent.HumanoidRootPart.CanCollide = false
+   end
+end
+end)
+Section:NewButton("Invisable Hitbox", "It makes the hitbox invisable", function()
+local transparency = 1 -- 0 significa opaco, 1 significa transparente
+for i,v in pairs(workspace:GetDescendants()) do
+  if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
+    local h = v.Parent.HumanoidRootPart
+    h.Transparency = transparency -- usar a variável
+    h.CanCollide = false
+  end
+end
 end)
 Section:NewButton("Boss Health Bar", "Simply a bar like a boss fight.", function()
 -- Referências necessárias
