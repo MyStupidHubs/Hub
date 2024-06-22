@@ -753,7 +753,7 @@ runService.Heartbeat:Connect(function()
     end
 end)
 end)
-Section:NewButton("Kill Aura", "Any attack you make will hit the Boss", function()
+Section:NewButton("Boss Health Bar", "Simply a bar like a boss fight.", function()
 -- Referências necessárias
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
