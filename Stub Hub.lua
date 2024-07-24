@@ -379,7 +379,16 @@ Section:NewButton("Fling Punch", "Very Very Op", function()
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'),true))()
 end)
 
-Section:NewButton("ESP", "Very Very Op", function()
+Section:NewButton("Click Fling", "Very Anonimous", function()
+    -- Click on the player you want to kill/fling and they'll get flung into oblivion
+-- Works on any game with collisions enabled
+ 
+-- Has some animations
+ 
+loadstring(game:HttpGet("https://gist.githubusercontent.com/dark-modz/dcd8a483a1ba00904cc3261a8299cfa1/raw/9a60d9c7c1f4749e6be2c27e2cdb80dec5cd8f2a/clickfling",true))()
+end)
+
+Section:NewButton("ESP", "Decent ESP", function()
     local FillColor = Color3.fromRGB(175,25,255)
 local DepthMode = "AlwaysOnTop"
 local FillTransparency = 0.5
