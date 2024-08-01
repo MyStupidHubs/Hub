@@ -873,19 +873,63 @@ end)
 
 local Tab = Window:NewTab("U3BB")
 local Section = Tab:NewSection("Hitbox [Not Mine]")
-Section:NewSlider("Hitbox Expander", "It increases the NPCS hitbox", 1000, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
-local x = s
-local y = s
-local z = s
+Section:NewButton("Kill Aura", "Just attack and you will hit the boss", function()
+local x = 20
+local y = 20
+local z = 20
 
-for i,v in pairs(workspace:GetDescendants()) do
-  if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
-    local h = v.Parent.HumanoidRootPart
-    h.Size = Vector3.new(x,y,z)
-    h.Transparency = 0
-    v.Parent.HumanoidRootPart.CanCollide = false
-  end
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local runService = game:GetService("RunService")
+
+local function getNearestHumanoid()
+    local nearestHumanoid = nil
+    local nearestDistance = math.huge
+
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Name ~= player.Name then
+            local humanoidRootPart = v.HumanoidRootPart
+            local distance = (humanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
+
+            if distance < nearestDistance then
+                nearestHumanoid = humanoidRootPart
+                nearestDistance = distance
+            end
+        end
+    end
+
+    return nearestHumanoid
 end
+
+local function updateHitbox()
+    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+
+    local nearestHumanoidRootPart = getNearestHumanoid()
+
+    if nearestHumanoidRootPart then
+        nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
+        nearestHumanoidRootPart.Transparency = 0.5
+        nearestHumanoidRootPart.CanCollide = false
+        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.5)
+    end
+end
+
+local function resetHitbox()
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Size == Vector3.new(x, y, z) and v.Transparency == 0.5 then
+            v.Size = Vector3.new(2, 2, 1)
+            v.Transparency = 1
+            v.CanCollide = true
+        end
+    end
+end
+
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    resetHitbox()
+end)
+
+runService.Heartbeat:Connect(updateHitbox)
 end)
 Section:NewButton("Back To Default", "NPCS hitbox returns to normal", function()
 local x = 2
@@ -915,8 +959,8 @@ for i,v in pairs(workspace:GetDescendants()) do
    end
 end
 end)
-Section:NewButton("Invisable Hitbox", "It makes the hitbox invisable", function()
-local transparency = 1 -- 0 significa opaco, 1 significa transparente
+Section:NewButton("Visable Hitbox", "It makes the hitbox invisable", function()
+local transparency = 0 -- 0 significa opaco, 1 significa transparente
 for i,v in pairs(workspace:GetDescendants()) do
   if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= game.Players.LocalPlayer.Name then
     local h = v.Parent.HumanoidRootPart
