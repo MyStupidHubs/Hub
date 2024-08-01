@@ -910,7 +910,7 @@ local function updateHitbox()
         nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
         nearestHumanoidRootPart.Transparency = 1
         nearestHumanoidRootPart.CanCollide = false
-        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.5)
+        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
     end
 end
 
@@ -968,7 +968,7 @@ local function updateHitbox()
         nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
         nearestHumanoidRootPart.Transparency = 1
         nearestHumanoidRootPart.CanCollide = false
-        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.5)
+        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
     end
 end
 
