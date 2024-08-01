@@ -1048,9 +1048,9 @@ end)
 runService.RenderStepped:Connect(updateHitbox)
 end)
 Section:NewButton("Kill Aura (Giant Range)", "Just attack and you will hit the boss", function()
-local x = 200
-local y = 200
-local z = 200
+local x = 150
+local y = 150
+local z = 150
 
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
