@@ -1117,21 +1117,83 @@ fireclickdetector(clickdetector)
 end
 end)
 local Section = Tab:NewSection("Gold Farm [Mine]")
-Section:NewButton("Dio Duck", "When you get the Soul Sword teleport to Dust", function()
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-22929.1504, 98.7203217, 11293.6221, 0, 0, 1, 0, 1, -0, -1, 0, 0)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait(0.1)
-pl.CFrame = location
+Section:NewButton("Auto Farm", "D7Pass required, enter Big White Door first ", function()
+local VirtualUser = game:GetService("VirtualUser")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local targetCFrame = CFrame.new(-22866.8262, 26.9694061, 11222.0186)
+local delayBeforeRestart = 2 -- Tempo para considerar que o jogador está parado no CFrame
+
+local function clickOnce()
+    local v2 = Vector2.new()
+    VirtualUser:ClickButton1(v2)
+end
+
+local function isInCFrame(character, cframe)
+    return (character.PrimaryPart.Position - cframe.Position).magnitude < 5 -- Ajuste o limite conforme necessário
+end
+
+local function autoFarm()
+    while true do
+        -- Teleporte para o primeiro CFrame
+        Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-22929.1504, 98.7203217, 11293.6221, 0, 0, 1, 0, 1, -0, -1, 0, 0))
+        wait(14)
+
+        -- Teleporte para o segundo CFrame
+        Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-2412.40039, -48.4226799, -972.48999, -0.766061664, 0, -0.642767608, 0, 1, 0, 0.642767608, 0, -0.766061664))
+
+        -- Inicia o loop de cliques
+        local clicking = true
+        while clicking do
+            clickOnce()
+            wait(0.1) -- Ajuste o tempo de espera entre cliques conforme necessário
+
+            -- Verifica a saúde do Humanoid
+            local humanoid = game.Workspace:FindFirstChild("DustSans") and game.Workspace.DustSans:FindFirstChild("Humanoid")
+            if humanoid and humanoid.Health <= 0 then
+                break
+            end
+
+            -- Verifica a posição atual do personagem
+            local character = Players.LocalPlayer.Character
+            if character and isInCFrame(character, targetCFrame) then
+                local startTime = tick()
+                while isInCFrame(character, targetCFrame) do
+                    wait(0.1)
+                    if tick() - startTime > delayBeforeRestart then
+                        clicking = false
+                        break
+                    end
+                end
+            end
+        end
+
+        -- Espera alguns segundos antes de reiniciar o ciclo
+        wait(0) -- Ajuste o tempo de espera conforme necessário
+    end
+end
+
+-- Inicia o auto farm
+autoFarm()
 end)
-Section:NewButton("Dust Sans", "Now kill him with the Soul Sword, repeat", function()
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-2412.40039, -48.4226799, -972.48999, -0.766061664, 0, -0.642767608, 0, 1, 0, 0.642767608, 0, -0.766061664)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait(0.1)
-pl.CFrame = location
+Section:NewButton("Rejoin", "This is to stop de farming", function()
+-- rejoin		
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Rejoin = coroutine.create(function()
+    local Success, ErrorMessage = pcall(function()
+        TeleportService:Teleport(game.PlaceId, LocalPlayer)
+    end)
+
+    if ErrorMessage and not Success then
+        warn(ErrorMessage)
+    end
+end)
+
+coroutine.resume(Rejoin)
 end)
 local Section = Tab:NewSection("Teleports [Mine]")
 Section:NewButton("Tem shop", "Teleports you to Tem shop", function()
