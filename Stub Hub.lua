@@ -989,63 +989,19 @@ end)
 
 runService.RenderStepped:Connect(updateHitbox)
 end)
-Section:NewButton("Kill Aura (Long Range)", "Just attack and you will hit the boss", function()
-local x = 100
-local y = 100
-local z = 100
+Section:NewSlider("Disbelief Papyrus Hitbox", "Put whatever size you want, the result is not pretty lol", 1000, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    -- Define the target size
+local targetSize = Vector3.new(s, s ,s)
 
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local runService = game:GetService("RunService")
+-- Get the container
+local container = game.Workspace.DisbeliefPapyrusArena.DisbeliefPapyrus.Chest
 
-local function getNearestHumanoid()
-    local nearestHumanoid = nil
-    local nearestDistance = math.huge
-
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= player.Name then
-            local humanoidRootPart = v.Parent.HumanoidRootPart
-            local distance = (humanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
-
-            if distance < nearestDistance then
-                nearestHumanoid = humanoidRootPart
-                nearestDistance = distance
-            end
-        end
-    end
-
-    return nearestHumanoid
-end
-
-local function updateHitbox()
-    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
-
-    local nearestHumanoidRootPart = getNearestHumanoid()
-
-    if nearestHumanoidRootPart then
-        nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
-        nearestHumanoidRootPart.Transparency = 1
-        nearestHumanoidRootPart.CanCollide = false
-        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
+-- Iterate through all children and set their size
+for _, child in ipairs(container:GetChildren()) do
+    if child:IsA("BasePart") then
+        child.Size = targetSize
     end
 end
-
-local function resetHitbox()
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 0 and v.CanCollide == false then
-            v.Size = Vector3.new(2, 2, 1)
-            v.Transparency = 1
-            v.CanCollide = true
-        end
-    end
-end
-
-player.CharacterAdded:Connect(function(newCharacter)
-    character = newCharacter
-    resetHitbox()
-end)
-
-runService.RenderStepped:Connect(updateHitbox)
 end)
 Section:NewButton("Boss Health Bar", "Simply a bar like a boss fight.", function()
 -- Referências necessárias
