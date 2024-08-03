@@ -1149,7 +1149,7 @@ createButton("UF Asgore 36+", UDim2.new(0, 10, 0, 100), function()
         local VirtualUser = game:GetService("VirtualUser")
         local v2 = Vector2.new()
         local startTime = tick()
-        local duration = 125
+        local duration = 130
 
         while tick() - startTime < duration do
             VirtualUser:ClickButton1(v2)
