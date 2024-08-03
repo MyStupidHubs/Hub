@@ -1046,6 +1046,18 @@ end)
 
 coroutine.resume(Rejoin)
 end)
+Section:NewButton("Auto Save", "Saves every 15 seconds", function()
+    local args = {
+    [1] = "Save"
+}
+
+local remote = workspace.UserDataStorage.User_4247057413.Save
+
+while true do
+    remote:FireServer(unpack(args))
+    wait(15) -- Espera 15 segundos
+end
+end)
 local Section = Tab:NewSection("Teleports [Mine]")
 Section:NewButton("Tem shop", "Teleports you to Tem shop", function()
 local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
