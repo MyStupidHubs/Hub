@@ -868,8 +868,8 @@ local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- p
 fireclickdetector(clickdetector)
 end
 end)
-local Section = Tab:NewSection("Gold Farm [Mine]")
-Section:NewButton("Auto Farm", "D7Pass required, enter Big White Door first ", function()
+local Section = Tab:NewSection("Gold/XP Farm [Mine]")
+Section:NewButton("Auto Farm Gold", "D7Pass required, enter Big White Door first ", function()
 local VirtualUser = game:GetService("VirtualUser")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -928,6 +928,221 @@ end
 
 -- Inicia o auto farm
 autoFarm()
+end)
+Section:NewButton("Auto Farm Xp", "You need the Devils Knife, and enough level for Asriel", function()
+    local teleportCFrames = {
+    CFrame.new(11042, 4264, -757),
+    CFrame.new(11042, 4264, -568),
+    CFrame.new(10823, 4264, -755),
+    CFrame.new(10823, 4264, -567),
+    CFrame.new(10685, 4264, -568)
+}
+local initialCFrame = CFrame.new(-768, -76, -1639)
+local duration = 110 -- 1 minuto e 50 segundos
+local teleportInterval = 1 -- Intervalo de teleportação em segundos
+local clickInterval = 0.1 -- Intervalo entre os cliques
+
+-- Função para equipar o primeiro slot do inventário
+local function equipFirstSlot()
+    local backpack = game.Players.LocalPlayer.Backpack
+    local firstItem = backpack:FindFirstChildOfClass("Tool")
+    if firstItem then
+        game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(firstItem)
+    end
+end
+
+-- Função para criar a barra de saúde
+local function createHealthBar(parent, position)
+    local healthBarBackground = Instance.new("Frame")
+    healthBarBackground.Size = UDim2.new(0.3, 0, 0.05, 0)
+    healthBarBackground.Position = position
+    healthBarBackground.BackgroundColor3 = Color3.new(0, 0, 0)
+    healthBarBackground.Parent = parent
+
+    local healthBar = Instance.new("Frame")
+    healthBar.Size = UDim2.new(1, 0, 1, 0)
+    healthBar.BackgroundColor3 = Color3.new(1, 0, 0)
+    healthBar.Parent = healthBarBackground
+
+    local healthLabel = Instance.new("TextLabel")
+    healthLabel.Size = UDim2.new(1, 0, 1, 0)
+    healthLabel.Position = UDim2.new(0, 0, 0, 0)
+    healthLabel.BackgroundTransparency = 1
+    healthLabel.TextColor3 = Color3.new(1, 1, 1)
+    healthLabel.TextScaled = true
+    healthLabel.Parent = healthBarBackground
+
+    return healthBarBackground, healthBar, healthLabel
+end
+
+-- Função para encontrar os dois Humanoids mais próximos
+local function getTwoNearestHumanoids()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoids = {}
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Parent.Name ~= player.Name then
+            table.insert(humanoids, v)
+        end
+    end
+
+    table.sort(humanoids, function(a, b)
+        local distanceA = (a.Parent.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
+        local distanceB = (b.Parent.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
+        return distanceA < distanceB
+    end)
+
+    return humanoids[1], humanoids[2]
+end
+
+-- Função para atualizar as barras de saúde
+local function updateHealthBars()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local runService = game:GetService("RunService")
+
+    local healthBarBackground1, healthBar1, healthLabel1 = createHealthBar(player:WaitForChild("PlayerGui"), UDim2.new(0.35, 0, 0.05, 0))
+    local healthBarBackground2, healthBar2, healthLabel2 = createHealthBar(player:WaitForChild("PlayerGui"), UDim2.new(0.35, 0, 0.12, 0))
+
+    runService.Heartbeat:Connect(function()
+        local nearestHumanoid1, nearestHumanoid2 = getTwoNearestHumanoids()
+
+        if nearestHumanoid1 then
+            if nearestHumanoid1.Health > 0 then
+                local healthFraction1 = nearestHumanoid1.Health / nearestHumanoid1.MaxHealth
+                healthBar1.Size = UDim2.new(healthFraction1, 0, 1, 0)
+                healthLabel1.Text = string.format("%d/%d", nearestHumanoid1.Health, nearestHumanoid1.MaxHealth)
+                healthBarBackground1.Visible = true
+            else
+                healthBarBackground1.Visible = false
+            end
+        else
+            healthBarBackground1.Visible = false
+        end
+
+        if nearestHumanoid2 then
+            if nearestHumanoid2.Health > 0 then
+                local healthFraction2 = nearestHumanoid2.Health / nearestHumanoid2.MaxHealth
+                healthBar2.Size = UDim2.new(healthFraction2, 0, 1, 0)
+                healthLabel2.Text = string.format("%d/%d", nearestHumanoid2.Health, nearestHumanoid2.MaxHealth)
+                healthBarBackground2.Visible = true
+            else
+                healthBarBackground2.Visible = false
+            end
+        else
+            healthBarBackground2.Visible = false
+        end
+    end)
+end
+
+-- Função para criar o hitbox do jogador
+local function createHitbox()
+    local x = 100
+    local y = 100
+    local z = 100
+    local searchRadius = 200
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local runService = game:GetService("RunService")
+
+    local function getNearestHumanoid()
+        local nearestHumanoid = nil
+        local nearestDistance = math.huge
+        local characterPosition = character.HumanoidRootPart.Position
+
+        for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
+            characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
+            characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
+        ), nil, math.huge)) do
+            local parent = v.Parent
+            if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name then
+                local humanoidRootPart = parent.HumanoidRootPart
+                local distance = (humanoidRootPart.Position - characterPosition).Magnitude
+
+                if distance < nearestDistance then
+                    nearestHumanoid = humanoidRootPart
+                    nearestDistance = distance
+                end
+            end
+        end
+
+        return nearestHumanoid
+    end
+
+    local function updateHitbox()
+        if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+
+        local nearestHumanoidRootPart = getNearestHumanoid()
+
+        if nearestHumanoidRootPart then
+            nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
+            nearestHumanoidRootPart.Transparency = 1
+            nearestHumanoidRootPart.CanCollide = false
+            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
+        end
+    end
+
+    local function resetHitbox()
+        for _, v in pairs(workspace:GetDescendants()) do
+            if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
+                v.Size = Vector3.new(2, 2, 1)
+                v.Transparency = 0
+                v.CanCollide = true
+            end
+        end
+    end
+
+    player.CharacterAdded:Connect(function(newCharacter)
+        character = newCharacter
+        resetHitbox()
+    end)
+
+    runService.RenderStepped:Connect(updateHitbox)
+end
+
+-- Função para clicar rapidamente
+local function rapidClick()
+    local VirtualUser = game:GetService("VirtualUser")
+    local v2 = Vector2.new()
+    while true do
+        VirtualUser:ClickButton1(v2)
+        wait(clickInterval)
+    end
+end
+
+-- Função principal
+local function main()
+    -- Etapa 1
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(initialCFrame)
+    wait(0.5) -- Atraso para garantir que o personagem esteja no lugar
+    local humanoid = game.Players.LocalPlayer.Character.Humanoid
+    humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+    wait(1) -- Tempo para o personagem pular e cair
+
+    -- Etapa 2
+    equipFirstSlot()
+    local startTime = tick()
+    local elapsedTime = 0
+
+    updateHealthBars()
+    createHitbox()
+    spawn(rapidClick) -- Inicia o clique rápido em uma nova thread
+
+    while elapsedTime < duration do
+        for _, cframe in ipairs(teleportCFrames) do
+            if elapsedTime >= duration then break end
+            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(cframe)
+            wait(teleportInterval) -- Espera 1 segundo entre os teletransportes
+            elapsedTime = tick() - startTime
+        end
+    end
+
+    -- Pausa antes de reiniciar o ciclo
+    wait(1)
+    main()
+end
+
+main()
 end)
 Section:NewButton("Rejoin", "This is to stop de farming", function()
 -- rejoin		
