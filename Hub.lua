@@ -937,6 +937,41 @@ local teleportCFrames = {
     CFrame.new(10823, 4264, -567),
     CFrame.new(10685, 4264, -568)
 }
+
+-- Função para calcular a distância entre dois CFrames
+local function distance(cframe1, cframe2)
+    return (cframe1.Position - cframe2.Position).Magnitude
+end
+
+-- Ordenar CFrames pela proximidade
+local function sortCFrames(cframes)
+    local sorted = {}
+    local currentCFrame = cframes[1]
+    table.insert(sorted, currentCFrame)
+
+    while #cframes > 0 do
+        table.remove(cframes, 1)
+        local nearestIndex = 1
+        local nearestDistance = math.huge
+
+        for i, cframe in ipairs(cframes) do
+            local dist = distance(currentCFrame, cframe)
+            if dist < nearestDistance then
+                nearestDistance = dist
+                nearestIndex = i
+            end
+        end
+
+        currentCFrame = cframes[nearestIndex]
+        table.insert(sorted, currentCFrame)
+        table.remove(cframes, nearestIndex)
+    end
+
+    return sorted
+end
+
+teleportCFrames = sortCFrames(teleportCFrames)
+
 local initialCFrame = CFrame.new(-768, -76, -1639)
 local duration = 110 -- 1 minuto e 50 segundos
 local teleportInterval = 1 -- Intervalo de teleportação em segundos
