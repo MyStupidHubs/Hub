@@ -544,6 +544,58 @@ end
 end)
 
 local Tab = Window:NewTab("U3BB")
+local Section = Tab:NewSection("Misc")
+Section:NewButton("No Attacks", "Simply delete the bosses attacks, basically immortal", function()
+    local Workspace = game:GetService("Workspace")
+local Debris = game:GetService("Debris")
+
+local function hasHumanoid(instance)
+    return instance:FindFirstAncestorWhichIsA("Model") and instance:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid") ~= nil
+end
+
+Section:NewButton("Auto Save", "Saves every 15 seconds", function()
+    local args = {
+    [1] = "Save"
+}
+
+local remote = workspace.UserDataStorage.User_4247057413.Save
+
+while true do
+    remote:FireServer(unpack(args))
+    wait(15) -- Espera 15 segundos
+end
+end)		
+
+local function onChildAdded(child)
+    if child:IsA("BasePart") and not hasHumanoid(child) then
+        -- Adiciona o objeto à lista de Debris para remoção rápida
+        Debris:AddItem(child, 0)  -- O segundo parâmetro é o tempo antes de remover (0 remove imediatamente)
+        print("Objeto sem Humanoid deletado:", child:GetFullName())
+    end
+end
+
+Workspace.ChildAdded:Connect(onChildAdded)
+end)
+
+Section:NewButton("Rejoin", "This is to stop de farming", function()
+-- rejoin		
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Rejoin = coroutine.create(function()
+    local Success, ErrorMessage = pcall(function()
+        TeleportService:Teleport(game.PlaceId, LocalPlayer)
+    end)
+
+    if ErrorMessage and not Success then
+        warn(ErrorMessage)
+    end
+end)
+
+coroutine.resume(Rejoin)
+end)
+
 local Section = Tab:NewSection("Hitbox [Not Mine]")
 
 Section:NewButton("Kill Aura (Close Range)", "Just attack and you will hit the boss", function()
@@ -1027,36 +1079,6 @@ local function main()
 end
 
 main()
-end)
-Section:NewButton("Rejoin", "This is to stop de farming", function()
--- rejoin		
-local TeleportService = game:GetService("TeleportService")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
-local Rejoin = coroutine.create(function()
-    local Success, ErrorMessage = pcall(function()
-        TeleportService:Teleport(game.PlaceId, LocalPlayer)
-    end)
-
-    if ErrorMessage and not Success then
-        warn(ErrorMessage)
-    end
-end)
-
-coroutine.resume(Rejoin)
-end)
-Section:NewButton("Auto Save", "Saves every 15 seconds", function()
-    local args = {
-    [1] = "Save"
-}
-
-local remote = workspace.UserDataStorage.User_4247057413.Save
-
-while true do
-    remote:FireServer(unpack(args))
-    wait(15) -- Espera 15 segundos
-end
 end)
 local Section = Tab:NewSection("Teleports [Mine]")
 Section:NewButton("Tem shop", "Teleports you to Tem shop", function()
