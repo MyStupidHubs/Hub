@@ -929,8 +929,8 @@ end
 -- Inicia o auto farm
 autoFarm()
 end)
-Section:NewButton("Auto Farm Xp", "You need the Devils Knife, and enough level for Asriel", function()
-    local teleportCFrames = {
+Section:NewButton("Auto Farm Xp", "You need the Devils Knife, enough level for Asriel, Execute Long Kill Aura", function()
+local teleportCFrames = {
     CFrame.new(11042, 4264, -757),
     CFrame.new(11042, 4264, -568),
     CFrame.new(10823, 4264, -755),
@@ -949,155 +949,6 @@ local function equipFirstSlot()
     if firstItem then
         game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(firstItem)
     end
-end
-
--- Função para criar a barra de saúde
-local function createHealthBar(parent, position)
-    local healthBarBackground = Instance.new("Frame")
-    healthBarBackground.Size = UDim2.new(0.3, 0, 0.05, 0)
-    healthBarBackground.Position = position
-    healthBarBackground.BackgroundColor3 = Color3.new(0, 0, 0)
-    healthBarBackground.Parent = parent
-
-    local healthBar = Instance.new("Frame")
-    healthBar.Size = UDim2.new(1, 0, 1, 0)
-    healthBar.BackgroundColor3 = Color3.new(1, 0, 0)
-    healthBar.Parent = healthBarBackground
-
-    local healthLabel = Instance.new("TextLabel")
-    healthLabel.Size = UDim2.new(1, 0, 1, 0)
-    healthLabel.Position = UDim2.new(0, 0, 0, 0)
-    healthLabel.BackgroundTransparency = 1
-    healthLabel.TextColor3 = Color3.new(1, 1, 1)
-    healthLabel.TextScaled = true
-    healthLabel.Parent = healthBarBackground
-
-    return healthBarBackground, healthBar, healthLabel
-end
-
--- Função para encontrar os dois Humanoids mais próximos
-local function getTwoNearestHumanoids()
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local humanoids = {}
-    for _, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Parent.Name ~= player.Name then
-            table.insert(humanoids, v)
-        end
-    end
-
-    table.sort(humanoids, function(a, b)
-        local distanceA = (a.Parent.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
-        local distanceB = (b.Parent.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
-        return distanceA < distanceB
-    end)
-
-    return humanoids[1], humanoids[2]
-end
-
--- Função para atualizar as barras de saúde
-local function updateHealthBars()
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local runService = game:GetService("RunService")
-
-    local healthBarBackground1, healthBar1, healthLabel1 = createHealthBar(player:WaitForChild("PlayerGui"), UDim2.new(0.35, 0, 0.05, 0))
-    local healthBarBackground2, healthBar2, healthLabel2 = createHealthBar(player:WaitForChild("PlayerGui"), UDim2.new(0.35, 0, 0.12, 0))
-
-    runService.Heartbeat:Connect(function()
-        local nearestHumanoid1, nearestHumanoid2 = getTwoNearestHumanoids()
-
-        if nearestHumanoid1 then
-            if nearestHumanoid1.Health > 0 then
-                local healthFraction1 = nearestHumanoid1.Health / nearestHumanoid1.MaxHealth
-                healthBar1.Size = UDim2.new(healthFraction1, 0, 1, 0)
-                healthLabel1.Text = string.format("%d/%d", nearestHumanoid1.Health, nearestHumanoid1.MaxHealth)
-                healthBarBackground1.Visible = true
-            else
-                healthBarBackground1.Visible = false
-            end
-        else
-            healthBarBackground1.Visible = false
-        end
-
-        if nearestHumanoid2 then
-            if nearestHumanoid2.Health > 0 then
-                local healthFraction2 = nearestHumanoid2.Health / nearestHumanoid2.MaxHealth
-                healthBar2.Size = UDim2.new(healthFraction2, 0, 1, 0)
-                healthLabel2.Text = string.format("%d/%d", nearestHumanoid2.Health, nearestHumanoid2.MaxHealth)
-                healthBarBackground2.Visible = true
-            else
-                healthBarBackground2.Visible = false
-            end
-        else
-            healthBarBackground2.Visible = false
-        end
-    end)
-end
-
--- Função para criar o hitbox do jogador
-local function createHitbox()
-    local x = 100
-    local y = 100
-    local z = 100
-    local searchRadius = 200
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local runService = game:GetService("RunService")
-
-    local function getNearestHumanoid()
-        local nearestHumanoid = nil
-        local nearestDistance = math.huge
-        local characterPosition = character.HumanoidRootPart.Position
-
-        for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
-            characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
-            characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
-        ), nil, math.huge)) do
-            local parent = v.Parent
-            if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name then
-                local humanoidRootPart = parent.HumanoidRootPart
-                local distance = (humanoidRootPart.Position - characterPosition).Magnitude
-
-                if distance < nearestDistance then
-                    nearestHumanoid = humanoidRootPart
-                    nearestDistance = distance
-                end
-            end
-        end
-
-        return nearestHumanoid
-    end
-
-    local function updateHitbox()
-        if not character or not character:FindFirstChild("HumanoidRootPart") then return end
-
-        local nearestHumanoidRootPart = getNearestHumanoid()
-
-        if nearestHumanoidRootPart then
-            nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
-            nearestHumanoidRootPart.Transparency = 1
-            nearestHumanoidRootPart.CanCollide = false
-            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
-        end
-    end
-
-    local function resetHitbox()
-        for _, v in pairs(workspace:GetDescendants()) do
-            if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
-                v.Size = Vector3.new(2, 2, 1)
-                v.Transparency = 0
-                v.CanCollide = true
-            end
-        end
-    end
-
-    player.CharacterAdded:Connect(function(newCharacter)
-        character = newCharacter
-        resetHitbox()
-    end)
-
-    runService.RenderStepped:Connect(updateHitbox)
 end
 
 -- Função para clicar rapidamente
@@ -1124,8 +975,6 @@ local function main()
     local startTime = tick()
     local elapsedTime = 0
 
-    updateHealthBars()
-    createHitbox()
     spawn(rapidClick) -- Inicia o clique rápido em uma nova thread
 
     while elapsedTime < duration do
