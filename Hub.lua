@@ -893,33 +893,7 @@ runService.Heartbeat:Connect(function()
     end
 end)
 	end)
-local Section = Tab:NewSection("Buy Foods [+ or - Mine]")
-Section:NewButton("Buy one Steak", "Buy one Sneak", function()
-    local clickdetector = Workspace.FaceStake.ClickDetector -- path to the click detector
 
-fireclickdetector(clickdetector)
-end)
-Section:NewButton("Buy one Hush Puppy", "Buy one Hush Puppy", function()
-    local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
-
-fireclickdetector(clickdetector)
-end)
-Section:NewButton("Buy infinities Steaks", "Buy infinities Sneaks", function()
-while true do
-wait()
-local clickdetector = Workspace.FaceStake.ClickDetector -- path to the click detector
-
-fireclickdetector(clickdetector)
-end
-end)
-Section:NewButton("Buy infinities Hush Puppys", "Buy infinities Hush Puppys", function()
-while true do
-wait()
-local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
-
-fireclickdetector(clickdetector)
-end
-end)
 local Section = Tab:NewSection("Gold/XP Farm [Mine]")
 Section:NewButton("Auto Farm Gold", "D7Pass required, enter Big White Door first ", function()
 local VirtualUser = game:GetService("VirtualUser")
@@ -1211,6 +1185,34 @@ textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 textLabel.TextWrapped = true
 textLabel.TextScaled = true
 textLabel.Parent = mainFrame
+end)
+
+local Section = Tab:NewSection("Buy Foods [+ or - Mine]")
+Section:NewButton("Buy one Steak", "Buy one Sneak", function()
+    local clickdetector = Workspace.FaceStake.ClickDetector -- path to the click detector
+
+fireclickdetector(clickdetector)
+end)
+Section:NewButton("Buy one Hush Puppy", "Buy one Hush Puppy", function()
+    local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
+
+fireclickdetector(clickdetector)
+end)
+Section:NewButton("Buy infinities Steaks", "Buy infinities Sneaks", function()
+while true do
+wait()
+local clickdetector = Workspace.FaceStake.ClickDetector -- path to the click detector
+
+fireclickdetector(clickdetector)
+end
+end)
+Section:NewButton("Buy infinities Hush Puppys", "Buy infinities Hush Puppys", function()
+while true do
+wait()
+local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
+
+fireclickdetector(clickdetector)
+end
 end)
 
 local Section = Tab:NewSection("Teleports [Mine]")
