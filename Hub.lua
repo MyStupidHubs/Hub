@@ -7,7 +7,7 @@ local colors = {
     TextColor = Color3.fromRGB(49,52,161),
     ElementColor = Color3.fromRGB(18,9,45)
 }
-local Window = Library.CreateLib("𝒮tub Hub", colors)
+local Window = Library.CreateLib("Stub Hub", colors)
 
 local Tab = Window:NewTab("General Misc")
 local Section = Tab:NewSection("Hub")
@@ -1371,5 +1371,5 @@ end)
 local Tab = Window:NewTab("GUI Part 2")
 local Section = Tab:NewSection("GUI Part 2")
 Section:NewButton("Part 2", "Just click this shitass button", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/MyStupidHubs/StubHub2/main/StubHub2',true))()
+    loadstring(game:HttpGet('https://github.com/MyStupidHubs/StubHub2/edit/main/StubHub2',true))()
 end)
