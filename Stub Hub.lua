@@ -7,7 +7,7 @@ local colors = {
     TextColor = Color3.fromRGB(49,52,161),
     ElementColor = Color3.fromRGB(18,9,45)
 }
-local Window = Library.CreateLib("Stub Hub", colors)
+local Window = Library.CreateLib("𝒮tub Hub", colors)
 
 local Tab = Window:NewTab("General Misc")
 local Section = Tab:NewSection("Hub")
