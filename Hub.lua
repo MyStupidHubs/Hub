@@ -990,7 +990,7 @@ pl.CFrame = location
 end)
 Section:NewButton("Lab", "Teleports you to Lab", function()
 local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-2985, 68, -8017)
+local location = CFrame.new(-2920, 68, -7941)
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
 humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 wait(0.1)
@@ -1006,7 +1006,7 @@ pl.CFrame = location
 end)
 Section:NewButton("MTT Resort", "Teleports you to MTT Resort", function()
 local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-926, 7, -825)
+local location = CFrame.new(-1048, 6, -770)
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
 humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 wait(0.1)
@@ -1014,7 +1014,7 @@ pl.CFrame = location
 end)
 Section:NewButton("Core", "Teleports you to Core", function()
 local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1043, 6, -826)
+local location = CFrame.new(8115, -24, -776)
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
 humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 wait(0.1)
@@ -1022,7 +1022,7 @@ pl.CFrame = location
 end)
 Section:NewButton("Judgement Hall", "Teleports you to Judgement Hall", function()
 local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1243, -61, -1333)
+local location = CFrame.new(-729, -61, -1925)
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
 humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 wait(0.1)
@@ -1030,7 +1030,7 @@ pl.CFrame = location
 end)
 Section:NewButton("Barrier", "Teleports you to Barrier", function()
 local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1392, -74, -1603)
+local location = CFrame.new(-829, -74, -1606)
 local humanoid = game.Players.LocalPlayer.Character.Humanoid
 humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 wait(0.1)
