@@ -929,7 +929,7 @@ end
 -- Inicia o auto farm
 autoFarm()
 end)
-Section:NewButton("Auto Farm Xp", "You need the Devils Knife, enough level for Asriel, Execute Long Kill Aura", function()
+Section:NewButton("Auto Farm Xp", "Use Devils Knife,Level 10+ for Asriel,Use Long Kill Aura", function()
 local teleportCFrames = {
     CFrame.new(11042, 4264, -757),
     CFrame.new(11042, 4264, -568),
