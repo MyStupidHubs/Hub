@@ -922,296 +922,289 @@ fireclickdetector(clickdetector)
 end
 end)
 local Section = Tab:NewSection("Gold/XP Farm [Mine]")
-Section:NewButton("Auto Farm Gold", "D7Pass required, enter Big White Door first ", function()
-local VirtualUser = game:GetService("VirtualUser")
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
-local targetCFrame = CFrame.new(-22866.8262, 26.9694061, 11222.0186)
-local delayBeforeRestart = 2 -- Tempo para considerar que o jogador está parado no CFrame
-
+-- Função de clique
 local function clickOnce()
+    local VirtualUser = game:GetService("VirtualUser")
     local v2 = Vector2.new()
     VirtualUser:ClickButton1(v2)
 end
 
+-- Verifica se o personagem está no CFrame alvo
 local function isInCFrame(character, cframe)
-    return (character.PrimaryPart.Position - cframe.Position).magnitude < 5 -- Ajuste o limite conforme necessário
+    return (character.PrimaryPart.Position - cframe.Position).magnitude < 5
 end
 
-local function autoFarm()
-    while true do
-        -- Teleporte para o primeiro CFrame
-        Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-22929.1504, 98.7203217, 11293.6221, 0, 0, 1, 0, 1, -0, -1, 0, 0))
-        wait(14)
+-- Função de auto farm para ouro
+Section:NewButton("Auto Farm Gold", "D7Pass required, enter Big White Door first ", function()
+    local Players = game:GetService("Players")
+    local RunService = game:GetService("RunService")
+    local targetCFrame = CFrame.new(-22866.8262, 26.9694061, 11222.0186)
+    local delayBeforeRestart = 2
 
-        -- Teleporte para o segundo CFrame
-        Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-2412.40039, -48.4226799, -972.48999, -0.766061664, 0, -0.642767608, 0, 1, 0, 0.642767608, 0, -0.766061664))
+    local function autoFarm()
+        while true do
+            -- Teleporte para o primeiro CFrame
+            Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-22929.1504, 98.7203217, 11293.6221))
+            wait(14)
 
-        -- Inicia o loop de cliques
-        local clicking = true
-        while clicking do
-            clickOnce()
-            wait(0.1) -- Ajuste o tempo de espera entre cliques conforme necessário
+            -- Teleporte para o segundo CFrame
+            Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-2412.40039, -48.4226799, -972.48999))
 
-            -- Verifica a saúde do Humanoid
-            local humanoid = game.Workspace:FindFirstChild("DustSans") and game.Workspace.DustSans:FindFirstChild("Humanoid")
-            if humanoid and humanoid.Health <= 0 then
-                break
-            end
+            -- Inicia o loop de cliques
+            local clicking = true
+            while clicking do
+                clickOnce()
+                wait(0.1)
 
-            -- Verifica a posição atual do personagem
-            local character = Players.LocalPlayer.Character
-            if character and isInCFrame(character, targetCFrame) then
-                local startTime = tick()
-                while isInCFrame(character, targetCFrame) do
-                    wait(0.1)
-                    if tick() - startTime > delayBeforeRestart then
-                        clicking = false
-                        break
+                local humanoid = game.Workspace:FindFirstChild("DustSans") and game.Workspace.DustSans:FindFirstChild("Humanoid")
+                if humanoid and humanoid.Health <= 0 then
+                    break
+                end
+
+                local character = Players.LocalPlayer.Character
+                if character and isInCFrame(character, targetCFrame) then
+                    local startTime = tick()
+                    while isInCFrame(character, targetCFrame) do
+                        wait(0.1)
+                        if tick() - startTime > delayBeforeRestart then
+                            clicking = false
+                            break
+                        end
                     end
                 end
             end
+
+            wait(0)
+        end
+    end
+
+    autoFarm()
+end)
+
+-- Função de auto farm para XP
+Section:NewButton("Auto Farm Xp", "Use Devils Knife, Level 10+ for Asriel, Use Long Kill Aura", function()
+    local Players = game:GetService("Players")
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.Name = "Undertale 3D Boss Battles Xp Farm"
+    ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local mainFrame = Instance.new("Frame")
+    mainFrame.Name = "MainFrame"
+    mainFrame.Size = UDim2.new(0, 300, 0, 220)
+    mainFrame.Position = UDim2.new(0.5, -150, 0.5, -110)
+    mainFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    mainFrame.BorderSizePixel = 2
+    mainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    mainFrame.Parent = ScreenGui
+
+    local titleBar = Instance.new("Frame")
+    titleBar.Name = "TitleBar"
+    titleBar.Size = UDim2.new(1, 0, 0, 30)
+    titleBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    titleBar.Parent = mainFrame
+
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Text = "Undertale 3D Boss Battles Xp Farm"
+    titleLabel.Size = UDim2.new(1, 0, 1, 0)
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    titleLabel.TextScaled = true
+    titleLabel.Parent = titleBar
+
+    local dragging
+    local dragStart
+    local startPos
+
+    local function onInputBegan(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            dragStart = input.Position
+            startPos = mainFrame.Position
+        end
+    end
+
+    local function onInputEnded(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end
+
+    local function onInputChanged(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local delta = input.Position - dragStart
+            mainFrame.Position = startPos + UDim2.new(0, delta.X, 0, delta.Y)
+        end
+    end
+
+    mainFrame.InputBegan:Connect(onInputBegan)
+    mainFrame.InputEnded:Connect(onInputEnded)
+    mainFrame.InputChanged:Connect(onInputChanged)
+
+    local closeButton = Instance.new("TextButton")
+    closeButton.Name = "CloseButton"
+    closeButton.Text = "X"
+    closeButton.Size = UDim2.new(0, 30, 1, 0)
+    closeButton.Position = UDim2.new(1, -30, 0, 0)
+    closeButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    closeButton.Parent = titleBar
+    closeButton.MouseButton1Click:Connect(function()
+        ScreenGui:Destroy()
+    end)
+
+    local function createButton(name, position, onClick)
+        local button = Instance.new("TextButton")
+        button.Name = name
+        button.Text = name
+        button.Size = UDim2.new(0, 280, 0, 50)
+        button.Position = position
+        button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+        button.TextColor3 = Color3.fromRGB(255, 255, 255)
+        button.Parent = mainFrame
+        button.MouseButton1Click:Connect(onClick)
+    end
+
+    createButton("Asriel 10+", UDim2.new(0, 10, 0, 40), function()
+        local teleportCFrames = {
+            CFrame.new(11042, 4264, -757),
+            CFrame.new(11042, 4264, -568),
+            CFrame.new(10823, 4264, -755),
+            CFrame.new(10823, 4264, -567),
+            CFrame.new(10685, 4264, -568)
+        }
+
+        local function distance(cframe1, cframe2)
+            return (cframe1.Position - cframe2.Position).Magnitude
         end
 
-        -- Espera alguns segundos antes de reiniciar o ciclo
-        wait(0) -- Ajuste o tempo de espera conforme necessário
-    end
-end
+        local function sortCFrames(cframes)
+            local sorted = {}
+            local currentCFrame = cframes[1]
+            table.insert(sorted, currentCFrame)
 
--- Inicia o auto farm
-autoFarm()
-end)
-Section:NewButton("Auto Farm Xp", "Use Devils Knife,Level 10+ for Asriel,Use Long Kill Aura", function()
--- Criar a tela do GUI
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "Undertale 3D Boss Battles Xp Farm"
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+            while #cframes > 0 do
+                table.remove(cframes, 1)
+                local nearestIndex = 1
+                local nearestDistance = math.huge
 
--- Criar a janela principal
-local mainFrame = Instance.new("Frame")
-mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 300, 0, 220)
-mainFrame.Position = UDim2.new(0.5, -150, 0.5, -110)
-mainFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-mainFrame.BorderSizePixel = 2
-mainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-mainFrame.Parent = ScreenGui
+                for i, cframe in ipairs(cframes) do
+                    local dist = distance(currentCFrame, cframe)
+                    if dist < nearestDistance then
+                        nearestDistance = dist
+                        nearestIndex = i
+                    end
+                end
 
--- Criar o título da janela
-local titleBar = Instance.new("Frame")
-titleBar.Name = "TitleBar"
-titleBar.Size = UDim2.new(1, 0, 0, 30)
-titleBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-titleBar.Parent = mainFrame
+                currentCFrame = cframes[nearestIndex]
+                table.insert(sorted, currentCFrame)
+                table.remove(cframes, nearestIndex)
+            end
 
-local titleLabel = Instance.new("TextLabel")
-titleLabel.Text = "Undertale 3D Boss Battles Xp Farm"
-titleLabel.Size = UDim2.new(1, 0, 1, 0)
-titleLabel.BackgroundTransparency = 1
-titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleLabel.TextScaled = true
-titleLabel.Parent = titleBar
+            return sorted
+        end
 
--- Função para mover o GUI
-local dragging
-local dragStart
-local startPos
+        teleportCFrames = sortCFrames(teleportCFrames)
 
-local function onInputBegan(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true
-        dragStart = input.Position
-        startPos = mainFrame.Position
-    end
-end
+        local initialCFrame = CFrame.new(-768, -76, -1639)
+        local duration = 160
+        local teleportInterval = 1
+        local clickInterval = 0.1
 
-local function onInputEnded(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = false
-    end
-end
+        local function equipFirstSlot()
+            local backpack = Players.LocalPlayer.Backpack
+            local firstItem = backpack:FindFirstChildOfClass("Tool")
+            if firstItem then
+                Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(firstItem)
+            end
+        end
 
-local function onInputChanged(input)
-    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-        local delta = input.Position - dragStart
-        mainFrame.Position = startPos + UDim2.new(0, delta.X, 0, delta.Y)
-    end
-end
+        local function rapidClick()
+            local VirtualUser = game:GetService("VirtualUser")
+            local v2 = Vector2.new()
+            while true do
+                VirtualUser:ClickButton1(v2)
+                wait(clickInterval)
+            end
+        end
 
-mainFrame.InputBegan:Connect(onInputBegan)
-mainFrame.InputEnded:Connect(onInputEnded)
-mainFrame.InputChanged:Connect(onInputChanged)
+        local function main()
+            Players.LocalPlayer.Character:SetPrimaryPartCFrame(initialCFrame)
+            wait(0.5)
+            local humanoid = Players.LocalPlayer.Character.Humanoid
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            wait(1)
 
--- Criar o botão de fechar
-local closeButton = Instance.new("TextButton")
-closeButton.Name = "CloseButton"
-closeButton.Text = "X"
-closeButton.Size = UDim2.new(0, 30, 1, 0)
-closeButton.Position = UDim2.new(1, -30, 0, 0)
-closeButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-closeButton.Parent = titleBar
-closeButton.MouseButton1Click:Connect(function()
-    ScreenGui:Destroy()
-end)
+            equipFirstSlot()
+            local startTime = tick()
+            local elapsedTime = 0
 
--- Função para criar botões
-local function createButton(name, position, onClick)
-    local button = Instance.new("TextButton")
-    button.Name = name
-    button.Text = name
-    button.Size = UDim2.new(0, 280, 0, 50)
-    button.Position = position
-    button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.Parent = mainFrame
-    button.MouseButton1Click:Connect(onClick)
-end
+            spawn(rapidClick)
 
--- Botão Asriel 10+
-createButton("Asriel 10+", UDim2.new(0, 10, 0, 40), function()
-    local teleportCFrames = {
-        CFrame.new(11042, 4264, -757),
-        CFrame.new(11042, 4264, -568),
-        CFrame.new(10823, 4264, -755),
-        CFrame.new(10823, 4264, -567),
-        CFrame.new(10685, 4264, -568)
-    }
-
-    local function distance(cframe1, cframe2)
-        return (cframe1.Position - cframe2.Position).Magnitude
-    end
-
-    local function sortCFrames(cframes)
-        local sorted = {}
-        local currentCFrame = cframes[1]
-        table.insert(sorted, currentCFrame)
-
-        while #cframes > 0 do
-            table.remove(cframes, 1)
-            local nearestIndex = 1
-            local nearestDistance = math.huge
-
-            for i, cframe in ipairs(cframes) do
-                local dist = distance(currentCFrame, cframe)
-                if dist < nearestDistance then
-                    nearestDistance = dist
-                    nearestIndex = i
+            while elapsedTime < duration do
+                for _, cframe in ipairs(teleportCFrames) do
+                    if elapsedTime >= duration then break end
+                    Players.LocalPlayer.Character:SetPrimaryPartCFrame(cframe)
+                    wait(teleportInterval)
+                    elapsedTime = tick() - startTime
                 end
             end
 
-            currentCFrame = cframes[nearestIndex]
-            table.insert(sorted, currentCFrame)
-            table.remove(cframes, nearestIndex)
+            wait(1)
+            main()
         end
 
-        return sorted
-    end
+        main()
+    end)
 
-    teleportCFrames = sortCFrames(teleportCFrames)
-
-    local initialCFrame = CFrame.new(-768, -76, -1639)
-    local duration = 160
-    local teleportInterval = 1
-    local clickInterval = 0.1
-
-    local function equipFirstSlot()
-        local backpack = game.Players.LocalPlayer.Backpack
-        local firstItem = backpack:FindFirstChildOfClass("Tool")
-        if firstItem then
-            game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(firstItem)
-        end
-    end
-
-    local function rapidClick()
-        local VirtualUser = game:GetService("VirtualUser")
-        local v2 = Vector2.new()
-        while true do
-            VirtualUser:ClickButton1(v2)
-            wait(clickInterval)
-        end
-    end
-
-    local function main()
-        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(initialCFrame)
-        wait(0.5)
-        local humanoid = game.Players.LocalPlayer.Character.Humanoid
-        humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-        wait(1)
-
-        equipFirstSlot()
-        local startTime = tick()
-        local elapsedTime = 0
-
-        spawn(rapidClick)
-
-        while elapsedTime < duration do
-            for _, cframe in ipairs(teleportCFrames) do
-                if elapsedTime >= duration then break end
-                game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(cframe)
-                wait(teleportInterval)
-                elapsedTime = tick() - startTime
+    createButton("UF Asgore 36+", UDim2.new(0, 10, 0, 100), function()
+        local function equipFirstSlot()
+            local backpack = Players.LocalPlayer.Backpack
+            local firstItem = backpack:FindFirstChildOfClass("Tool")
+            if firstItem then
+                Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(firstItem)
             end
         end
 
-        wait(1)
-        main()
-    end
+        local function clickRapidly()
+            local VirtualUser = game:GetService("VirtualUser")
+            local v2 = Vector2.new()
+            local startTime = tick()
+            local duration = 100
 
-    main()
-end)
-
--- Botão UF Asgore 36+
-createButton("UF Asgore 36+", UDim2.new(0, 10, 0, 100), function()
-    local function equipFirstSlot()
-        local backpack = game.Players.LocalPlayer.Backpack
-        local firstItem = backpack:FindFirstChildOfClass("Tool")
-        if firstItem then
-            game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(firstItem)
+            while tick() - startTime < duration do
+                VirtualUser:ClickButton1(v2)
+                wait(0.05)
+            end
         end
-    end
 
-    local function clickRapidly()
-        local VirtualUser = game:GetService("VirtualUser")
-        local v2 = Vector2.new()
-        local startTime = tick()
-        local duration = 100
+        local function main()
+            local teleportPosition = CFrame.new(-13772, -64, -12327)
+            Players.LocalPlayer.Character:SetPrimaryPartCFrame(teleportPosition)
+            wait(1)
 
-        while tick() - startTime < duration do
-            VirtualUser:ClickButton1(v2)
-            wait(0.05) -- Ajuste o intervalo para evitar sobrecarga no jogo
+            equipFirstSlot()
+            local humanoid = Players.LocalPlayer.Character.Humanoid
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            wait(1)
+
+            clickRapidly()
+            wait(1)
+            main()
         end
-    end
 
-    local function main()
-        local teleportPosition = CFrame.new(-13772, -64, -12327)
-        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(teleportPosition)
-        wait(1)
-
-        equipFirstSlot()
-        local humanoid = game.Players.LocalPlayer.Character.Humanoid
-        humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-        wait(1)
-
-        clickRapidly()
-        wait(1) -- Pausa antes de reiniciar o ciclo
         main()
-    end
+    end)
 
-    main()
-end)
-
--- Adicionar texto para a arma e uso
-local textLabel = Instance.new("TextLabel")
-textLabel.Text = "Weapon to use: Devils Knife; Use: No Attacks for UF Asgore, Long Range Kill Aura for Asriel"
-textLabel.Size = UDim2.new(0, 280, 0, 60)
-textLabel.Position = UDim2.new(0, 10, 0, 160)
-textLabel.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-textLabel.TextWrapped = true
-textLabel.TextScaled = true
-textLabel.Parent = mainFrame
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = "Weapon to use: Devils Knife; Use: No Attacks for UF Asgore, Long Range Kill Aura for Asriel"
+    textLabel.Size = UDim2.new(0, 280, 0, 60)
+    textLabel.Position = UDim2.new(0, 10, 0, 160)
+    textLabel.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.TextWrapped = true
+    textLabel.TextScaled = true
+    textLabel.Parent = mainFrame
 end)
 
 local Section = Tab:NewSection("Teleports [Mine]")
