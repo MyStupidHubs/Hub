@@ -10,10 +10,7 @@ local colors = {
 local Window = Library.CreateLib("Stub Hub", colors)
 
 local Tab = Window:NewTab("General Misc")
-local Section = Tab:NewSection("Hub")
-Section:NewButton("Discord", "Will copy the invite to the discord server", function()
-setclipboard("https://discord.gg/JMgeyqhWg3")
-end)
+local Section = Tab:NewSection("Made by a*_a*****2")
 local Section = Tab:NewSection("Player")
 Section:NewSlider("Walkspeed", "Just increase your speed", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
