@@ -447,6 +447,235 @@ Players.PlayerRemoving:Connect(function(plr)
 end)
 end)
 
+local Tab = Window:NewTab("UTMM Games")
+local Section = Tab:NewSection("Misc [Not mine]")
+Section:NewButton("No Attacks", "NPCS don't attack you", function()
+	game:GetService("Players").LocalPlayer.PlayerGui.Handler.Disabled=true
+	game:GetService("Players").LocalPlayer.PlayerGui.ChildAdded:Connect(function(c)
+		wait()
+		if c.Name=="Handler" then
+			c.Disabled = true
+		end
+	end)
+end)
+Section:NewButton("Kill Aura", "Kill aura [NPCS]", function()
+local Player = game.Players.LocalPlayer
+	while wait(0.1) do
+		for index, value in next, workspace:GetDescendants() do
+			if (value:FindFirstChildOfClass("Humanoid") and value ~= Player.Character) then
+				value.Humanoid.Health = 0
+			end
+		end
+	end
+end)
+
+Section:NewButton("Get All Weapons", "Equip: click on the image in the upper left corner", function()
+for _,v in pairs(game.Players.LocalPlayer.Weapons:GetDescendants()) do
+		if v:IsA("BoolValue") and v.Value == false then
+			v.Value = true
+		end
+	end
+end)
+
+local Section = Tab:NewSection("Undertale Legacy Mania")
+Section:NewButton("Auto Food [Mine]", "Automatically buys the best food with the gold you have", function()
+local args = {
+    [1] = game:GetService("Lighting").Food.ButterscotchPie,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.ButterscotchPie,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.SuperHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.LHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.LHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.LHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.LHero,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+wait()
+local args = {
+    [1] = game:GetService("Lighting").Food.MTTSteak,
+    [2] = "Food"
+}
+
+game:GetService("Lighting").Buy:FireServer(unpack(args))
+end)
+
+local Tab = Window:NewTab("RPG Games")
+local Section = Tab:NewSection("Everycyans Kit [MISC] [+ or - Mine]")
+Section:NewButton("Get All Weapons", ">>>BUY<<< all weapon that your money can buy", function()
+local RS = game:GetService("ReplicatedStorage")
+
+for Index, Variable in pairs(RS.GameItems:GetChildren()) do
+ game:GetService("ReplicatedStorage").GameRemotes.BuyEvent:FireServer(Variable.Name)
+end
+end)
+
+local Tab = Window:NewTab("EBS")
+local Section = Tab:NewSection("Kill Farm [Not Mine]")
+Section:NewButton("Kill Farm", "Kill Everyone and anothers hot functions", function()
+    loadstring(game:HttpGetAsync("https://pastebin.com/raw/A34Z7gMx"))()
+end)
+local Section = Tab:NewSection("GUIS [Not Mine]")
+Section:NewButton("GUI MaxFlubber", "A MaxFlubber game GUI", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/juNstring/LuaProjects/main/nitro.club/ExercitoCu.lua'))()
+end)
+Section:NewButton("GUI Auto farm MaxFlubber", "A MaxFlubber game Auto Farm GUI", function()
+    loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/AutoFarmMax-Build.lua"),true))()
+end)
+
+Section:NewButton("GUI Ageniio", "A Ageniio game GUI", function()
+print(":TestaDeAfiarPica: --best emoji in game leaks server")
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Scripted By MaxFlubber", "All")
+local TrabalhoFolder = game:GetService("Workspace").Mapa.Outros.Trabalhos
+local Pos = {
+    CFrame.new(527, 169, -141),
+    CFrame.new(527, 169, -132),
+    CFrame.new(527, 169, -151),
+    CFrame.new(561, 169, -132),
+    CFrame.new(561, 169, -141)
+    
+}
+while task.wait(0.1)do
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(525, 167, -81)
+    task.wait(0.1)
+    fireproximityprompt(TrabalhoFolder.Mercado["Tool Giver"].giver.ProximityPrompt)
+    task.wait(0.1)
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Pos[math.random(1,#Pos)]
+    task.wait(0.2)
+end
+end)
+local Section = Tab:NewSection("Training [Mine]")
+Section:NewButton("JJ'S", "It jumps and talks like they ask in training", function()
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextBox = Instance.new("TextBox")
+local Button = Instance.new("TextButton")
+local CloseButton = Instance.new("TextButton")
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+Frame.Position = UDim2.new(0.35, 0, 0.35, 0)
+Frame.Size = UDim2.new(0.3, 0, 0.3, 0)
+Frame.Active = true
+Frame.Draggable = true
+
+TextBox.Parent = Frame
+TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.Position = UDim2.new(0.1, 0, 0.1, 0)
+TextBox.Size = UDim2.new(0.8, 0, 0.2, 0)
+TextBox.PlaceholderText = "Digite um número até 500"
+TextBox.Font = Enum.Font.SourceSans
+TextBox.TextScaled = true
+TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+
+Button.Parent = Frame
+Button.BackgroundColor3 = Color3.fromRGB(0, 122, 204)
+Button.Position = UDim2.new(0.3, 0, 0.4, 0)
+Button.Size = UDim2.new(0.4, 0, 0.2, 0)
+Button.Text = "Contar"
+Button.Font = Enum.Font.SourceSans
+Button.TextScaled = true
+Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+CloseButton.Parent = Frame
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+CloseButton.Position = UDim2.new(0.9, -20, 0, 5)
+CloseButton.Size = UDim2.new(0.1, -5, 0.1, -5)
+CloseButton.Text = "X"
+CloseButton.Font = Enum.Font.SourceSans
+CloseButton.TextScaled = true
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local numbers = {
+    [1] = "UM", [2] = "DOIS", [3] = "TRÊS", [4] = "QUATRO", [5] = "CINCO", [6] = "SEIS", [7] = "SETE",
+    [8] = "OITO", [9] = "NOVE", [10] = "DEZ", [11] = "ONZE", [12] = "DOZE", [13] = "TREZE", [14] = "QUATORZE",
+    [15] = "QUINZE", [16] = "DEZESSEIS", [17] = "DEZESSETE", [18] = "DEZOITO", [19] = "DEZENOVE", [20] = "VINTE",
+    [30] = "TRINTA", [40] = "QUARENTA", [50] = "CINQUENTA", [60] = "SESSENTA", [70] = "SETENTA", [80] = "OITENTA",
+    [90] = "NOVENTA", [100] = "CEM", [200] = "DUZENTOS", [300] = "TREZENTOS", [400] = "QUATROCENTOS", [500] = "QUINHENTOS"
+}
+
+local function numberToWords(n)
+    if numbers[n] then
+        return numbers[n] .. " !"
+    elseif n < 30 then
+        return numbers[20] .. " E " .. numbers[n-20] .. " !"
+    elseif n < 100 then
+        local units = n % 10
+        return numbers[n - units] .. (units > 0 and " E " .. numbers[units] or "") .. " !"
+    elseif n < 200 then
+        return "CENTO E " .. numberToWords(n - 100)
+    elseif n < 1000 then
+        local hundreds = math.floor(n / 100) * 100
+        local remainder = n % 100
+        return numbers[hundreds] .. (remainder > 0 and " E " .. numberToWords(remainder) or "") .. " !"
+    end
+end
+
+Button.MouseButton1Click:Connect(function()
+    local num = tonumber(TextBox.Text)
+    if num and num > 0 and num <= 500 then
+        for i = 1, num do
+            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(numberToWords(i), "All")
+            local humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            end
+            wait(1.5) -- Increased delay between each number and jump
+        end
+    else
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Por favor, insira um número válido até 500", "All")
+    end
+end)
+
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+end)
+
+local Tab = Window:NewTab("Ultra Power Tycoon")
+local Section = Tab:NewSection("GUI [Not Mine]")
+Section:NewButton("GUI", "Script found in V3rmillion, I don't find the credits", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraIsMe/ToraIsMe/main/0ultra", true))()
+end)
+
 local Tab = Window:NewTab("Simulator Games")
 local Section = Tab:NewSection("Lifting Simulator [Mine]")
 Section:NewToggle("Melee", "Auto Farm Melee", function(state)
@@ -596,105 +825,6 @@ end)
     end
 end)
 
-local Tab = Window:NewTab("UTMM Games")
-local Section = Tab:NewSection("Misc [Not mine]")
-Section:NewButton("No Attacks", "NPCS don't attack you", function()
-	game:GetService("Players").LocalPlayer.PlayerGui.Handler.Disabled=true
-	game:GetService("Players").LocalPlayer.PlayerGui.ChildAdded:Connect(function(c)
-		wait()
-		if c.Name=="Handler" then
-			c.Disabled = true
-		end
-	end)
-end)
-Section:NewButton("Kill Aura", "Kill aura [NPCS]", function()
-local Player = game.Players.LocalPlayer
-	while wait(0.1) do
-		for index, value in next, workspace:GetDescendants() do
-			if (value:FindFirstChildOfClass("Humanoid") and value ~= Player.Character) then
-				value.Humanoid.Health = 0
-			end
-		end
-	end
-end)
-
-Section:NewButton("Get All Weapons", "Equip: click on the image in the upper left corner", function()
-for _,v in pairs(game.Players.LocalPlayer.Weapons:GetDescendants()) do
-		if v:IsA("BoolValue") and v.Value == false then
-			v.Value = true
-		end
-	end
-end)
-
-local Section = Tab:NewSection("Undertale Legacy Mania")
-Section:NewButton("Auto Food [Mine]", "Automatically buys the best food with the gold you have", function()
-local args = {
-    [1] = game:GetService("Lighting").Food.ButterscotchPie,
-    [2] = "Food"
-}
-
-game:GetService("Lighting").Buy:FireServer(unpack(args))
-wait()
-local args = {
-    [1] = game:GetService("Lighting").Food.ButterscotchPie,
-    [2] = "Food"
-}
-
-game:GetService("Lighting").Buy:FireServer(unpack(args))
-wait()
-local args = {
-    [1] = game:GetService("Lighting").Food.SuperHero,
-    [2] = "Food"
-}
-
-game:GetService("Lighting").Buy:FireServer(unpack(args))
-wait()
-local args = {
-    [1] = game:GetService("Lighting").Food.LHero,
-    [2] = "Food"
-}
-
-game:GetService("Lighting").Buy:FireServer(unpack(args))
-wait()
-local args = {
-    [1] = game:GetService("Lighting").Food.LHero,
-    [2] = "Food"
-}
-
-game:GetService("Lighting").Buy:FireServer(unpack(args))
-wait()
-local args = {
-    [1] = game:GetService("Lighting").Food.LHero,
-    [2] = "Food"
-}
-
-game:GetService("Lighting").Buy:FireServer(unpack(args))
-wait()
-local args = {
-    [1] = game:GetService("Lighting").Food.LHero,
-    [2] = "Food"
-}
-
-game:GetService("Lighting").Buy:FireServer(unpack(args))
-wait()
-local args = {
-    [1] = game:GetService("Lighting").Food.MTTSteak,
-    [2] = "Food"
-}
-
-game:GetService("Lighting").Buy:FireServer(unpack(args))
-end)
-
-local Tab = Window:NewTab("RPG Games")
-local Section = Tab:NewSection("Everycyans Kit [MISC] [+ or - Mine]")
-Section:NewButton("Get All Weapons", ">>>BUY<<< all weapon that your money can buy", function()
-local RS = game:GetService("ReplicatedStorage")
-
-for Index, Variable in pairs(RS.GameItems:GetChildren()) do
- game:GetService("ReplicatedStorage").GameRemotes.BuyEvent:FireServer(Variable.Name)
-end
-end)
-
 local Tab = Window:NewTab("Bear")
 local Section = Tab:NewSection("Bear* Auto Farm [Mine]")
 Section:NewButton("Auto Farm Coin", "Script fixed, now to enable or disable click E.", function()
@@ -745,130 +875,6 @@ while true do wait() game.Workspace.Obby.Quidz.CFrame = (game.Players.LocalPlaye
 wait()
 game.Players.LocalPlayer.Character.Humanoid.Jump = false
 end
-end)
-
-local Tab = Window:NewTab("EBS")
-local Section = Tab:NewSection("Kill Farm [Not Mine]")
-Section:NewButton("Kill Farm", "Kill Everyone and anothers hot functions", function()
-    loadstring(game:HttpGetAsync("https://pastebin.com/raw/A34Z7gMx"))()
-end)
-local Section = Tab:NewSection("GUIS [Not Mine]")
-Section:NewButton("GUI MaxFlubber", "A MaxFlubber game GUI", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/juNstring/LuaProjects/main/nitro.club/ExercitoCu.lua'))()
-end)
-Section:NewButton("GUI Auto farm MaxFlubber", "A MaxFlubber game Auto Farm GUI", function()
-    loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/AutoFarmMax-Build.lua"),true))()
-end)
-
-Section:NewButton("GUI Ageniio", "A Ageniio game GUI", function()
-print(":TestaDeAfiarPica: --best emoji in game leaks server")
-game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Scripted By MaxFlubber", "All")
-local TrabalhoFolder = game:GetService("Workspace").Mapa.Outros.Trabalhos
-local Pos = {
-    CFrame.new(527, 169, -141),
-    CFrame.new(527, 169, -132),
-    CFrame.new(527, 169, -151),
-    CFrame.new(561, 169, -132),
-    CFrame.new(561, 169, -141)
-    
-}
-while task.wait(0.1)do
-    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(525, 167, -81)
-    task.wait(0.1)
-    fireproximityprompt(TrabalhoFolder.Mercado["Tool Giver"].giver.ProximityPrompt)
-    task.wait(0.1)
-    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Pos[math.random(1,#Pos)]
-    task.wait(0.2)
-end
-end)
-local Section = Tab:NewSection("Training [Not Mine]")
-Section:NewButton("JJ'S", "It jumps and talks like they ask in training", function()
-local ScreenGui = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local TextBox = Instance.new("TextBox")
-local Button = Instance.new("TextButton")
-local CloseButton = Instance.new("TextButton")
-
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
-Frame.Position = UDim2.new(0.35, 0, 0.35, 0)
-Frame.Size = UDim2.new(0.3, 0, 0.3, 0)
-Frame.Active = true
-Frame.Draggable = true
-
-TextBox.Parent = Frame
-TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextBox.Position = UDim2.new(0.1, 0, 0.1, 0)
-TextBox.Size = UDim2.new(0.8, 0, 0.2, 0)
-TextBox.PlaceholderText = "Digite um número até 500"
-TextBox.Font = Enum.Font.SourceSans
-TextBox.TextScaled = true
-TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
-
-Button.Parent = Frame
-Button.BackgroundColor3 = Color3.fromRGB(0, 122, 204)
-Button.Position = UDim2.new(0.3, 0, 0.4, 0)
-Button.Size = UDim2.new(0.4, 0, 0.2, 0)
-Button.Text = "Contar"
-Button.Font = Enum.Font.SourceSans
-Button.TextScaled = true
-Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-CloseButton.Parent = Frame
-CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-CloseButton.Position = UDim2.new(0.9, -20, 0, 5)
-CloseButton.Size = UDim2.new(0.1, -5, 0.1, -5)
-CloseButton.Text = "X"
-CloseButton.Font = Enum.Font.SourceSans
-CloseButton.TextScaled = true
-CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-local numbers = {
-    [1] = "UM", [2] = "DOIS", [3] = "TRÊS", [4] = "QUATRO", [5] = "CINCO", [6] = "SEIS", [7] = "SETE",
-    [8] = "OITO", [9] = "NOVE", [10] = "DEZ", [11] = "ONZE", [12] = "DOZE", [13] = "TREZE", [14] = "QUATORZE",
-    [15] = "QUINZE", [16] = "DEZESSEIS", [17] = "DEZESSETE", [18] = "DEZOITO", [19] = "DEZENOVE", [20] = "VINTE",
-    [30] = "TRINTA", [40] = "QUARENTA", [50] = "CINQUENTA", [60] = "SESSENTA", [70] = "SETENTA", [80] = "OITENTA",
-    [90] = "NOVENTA", [100] = "CEM", [200] = "DUZENTOS", [300] = "TREZENTOS", [400] = "QUATROCENTOS", [500] = "QUINHENTOS"
-}
-
-local function numberToWords(n)
-    if numbers[n] then
-        return numbers[n] .. " !"
-    elseif n < 30 then
-        return numbers[20] .. " E " .. numbers[n-20] .. " !"
-    elseif n < 100 then
-        local units = n % 10
-        return numbers[n - units] .. (units > 0 and " E " .. numbers[units] or "") .. " !"
-    elseif n < 200 then
-        return "CENTO E " .. numberToWords(n - 100)
-    elseif n < 1000 then
-        local hundreds = math.floor(n / 100) * 100
-        local remainder = n % 100
-        return numbers[hundreds] .. (remainder > 0 and " E " .. numberToWords(remainder) or "") .. " !"
-    end
-end
-
-Button.MouseButton1Click:Connect(function()
-    local num = tonumber(TextBox.Text)
-    if num and num > 0 and num <= 500 then
-        for i = 1, num do
-            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(numberToWords(i), "All")
-            local humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-            if humanoid then
-                humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-            end
-            wait(1.5) -- Increased delay between each number and jump
-        end
-    else
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Por favor, insira um número válido até 500", "All")
-    end
-end)
-
-CloseButton.MouseButton1Click:Connect(function()
-    ScreenGui:Destroy()
-end)
 end)
 
 local Tab = Window:NewTab("U3BB")
@@ -1341,1708 +1347,6 @@ while true do
         end
     end
 end
-end)
-
-local Tab = Window:NewTab("World Sail")
-local Section = Tab:NewSection("Auto Farm [By Me and NoTengoPaiXD#5421]")
-Section:NewButton("Using Melee", "Skill Z. To get the quest you need level 500", function(state)
-        spawn(function()
-        _G.Enabled = true
-        
-        --Settings
-        local Enemy = "BlackLeg"
-        local Distance = 18
-        
-        --Variable
-        local player = game.Players.LocalPlayer
-        
-        --Equip
-        local function Equip()
-            if not player.Character:FindFirstChildOfClass("Tool") then
-                Weapon = player.Backpack:FindFirstChildOfClass("Tool")
-                player.Character.Humanoid:EquipTool(Weapon)
-            end
-        end
-        
-        --Farm
-        while wait() do
-        while _G.Enabled == true do
-            for i, thing in ipairs(workspace:GetDescendants()) do
-                if _G.Enabled == true and player.Character and thing.Name == Enemy and thing:FindFirstChild("Humanoid") then
-                    local health = thing.Humanoid.Health
-                    repeat
-                        Equip()
-                        player.Character.HumanoidRootPart.CFrame = thing.HumanoidRootPart.CFrame * CFrame.new(Vector3.new(0, 0, Distance))
-                        Weapon:Activate()
-                        wait()
-                        health = thing.Humanoid.Health
-                    until health <= 0
-                    
-                end
-            end
-            wait()
-        end
-        end
-        end)
-        
-        spawn(function()
-        _G.Combat = true
-        
-        while wait() do
-        if _G.Combat == true then
-        local args = {
-        [1] = "GroundSlam",
-        }
-
-        game:GetService("Players").LocalPlayer.Character.Regular.Client.Server.Ability:FireServer(unpack(args))
-
-        end
-        end
-        end)
-        
-        spawn(function()
-        _G.Quest15 = true
-        
-        while wait(1) do
-        if _G.Quest15 == true then
-        local args = {
-            [1] = "Quest15"
-        }
-        
-        game:GetService("ReplicatedStorage").Accept:FireServer(unpack(args))
-        end
-        end
-        end)
-        end)
-        
-Section:NewButton("Using Bombu", "Skill Z. To get the quest you need level 500", function(state)
-        spawn(function()
-        _G.Enabled = true
-        
-        --Settings
-        local Enemy = "BlackLeg"
-        local Distance = 18
-        
-        --Variable
-        local player = game.Players.LocalPlayer
-        
-        --Equip
-        local function Equip()
-            if not player.Character:FindFirstChildOfClass("Tool") then
-                Weapon = player.Backpack:FindFirstChildOfClass("Tool")
-                player.Character.Humanoid:EquipTool(Weapon)
-            end
-        end
-        
-        --Farm
-        while wait() do
-        while _G.Enabled == true do
-            for i, thing in ipairs(workspace:GetDescendants()) do
-                if _G.Enabled == true and player.Character and thing.Name == Enemy and thing:FindFirstChild("Humanoid") then
-                    local health = thing.Humanoid.Health
-                    repeat
-                        Equip()
-                        player.Character.HumanoidRootPart.CFrame = thing.HumanoidRootPart.CFrame * CFrame.new(Vector3.new(0, 0, Distance))
-                        Weapon:Activate()
-                        wait()
-                        health = thing.Humanoid.Health
-                    until health <= 0
-                    
-                end
-            end
-            wait()
-        end
-        end
-        end)
-        
-        spawn(function()
-       _G.Combat = true
-                
-                while wait() do
-                if _G.Combat == true then
-                local args = {
-                    [1] = "BombExplode"
-                }
-                
-                game:GetService("Players").LocalPlayer.Character.Bomb.Client.Server.Ability:FireServer(unpack(args))
-                end
-                end
-                end)
-        
-        spawn(function()
-        _G.Quest15 = true
-        
-        while wait(1) do
-        if _G.Quest15 == true then
-        local args = {
-            [1] = "Quest15"
-        }
-        
-        game:GetService("ReplicatedStorage").Accept:FireServer(unpack(args))
-        end
-        end
-        end)
-        end)
-    
-    Section:NewButton("Using Barrier", "Skill X,C. To get the quest you need level 500", function(state)
-        spawn(function()
-        _G.Enabled = true
-        
-        --Settings
-        local Enemy = "BlackLeg"
-        local Distance = 18
-        
-        --Variable
-        local player = game.Players.LocalPlayer
-        
-        --Equip
-        local function Equip()
-            if not player.Character:FindFirstChildOfClass("Tool") then
-                Weapon = player.Backpack:FindFirstChildOfClass("Tool")
-                player.Character.Humanoid:EquipTool(Weapon)
-            end
-        end
-        
-        --Farm
-        while wait() do
-        while _G.Enabled == true do
-            for i, thing in ipairs(workspace:GetDescendants()) do
-                if _G.Enabled == true and player.Character and thing.Name == Enemy and thing:FindFirstChild("Humanoid") then
-                    local health = thing.Humanoid.Health
-                    repeat
-                        Equip()
-                        player.Character.HumanoidRootPart.CFrame = thing.HumanoidRootPart.CFrame * CFrame.new(Vector3.new(0, 0, Distance))
-                        Weapon:Activate()
-                        wait()
-                        health = thing.Humanoid.Health
-                    until health <= 0
-                    
-                end
-            end
-            wait()
-        end
-        end
-        end)
-        
-        spawn(function()
-        _G.BarrierPistol = true
-        
-        while wait() do
-        if _G.BarrierPistol == true then
-        local args = {
-        [1] = "BarrierPistol",
-        }
-
-        game:GetService("Players").LocalPlayer.Character.Barrier.Client.Server.Ability:FireServer(unpack(args))
-        end
-        end
-        end)
-                
-        spawn(function()
-        _G.Barrier = true
-        
-        while wait(0.5) do
-        if _G.Barrier == true then
-        local args = {
-        [1] = "Barrier"
-        }
-
-        game:GetService("Players").LocalPlayer.Character.Barrier.Client.Server.Ability:FireServer(unpack(args))
-        end
-        end
-        end)
-        
-        spawn(function()
-        _G.Quest15 = true
-        
-        while wait(1) do
-        if _G.Quest15 == true then
-        local args = {
-            [1] = "Quest15"
-        }
-        
-        game:GetService("ReplicatedStorage").Accept:FireServer(unpack(args))
-        end
-        end
-        end)
-        end)
-
-local Tab = Window:NewTab("Juice Pirates")
-local Section = Tab:NewSection("Key Farm [By Me and NoTengoPaiXD#5421]")
-Section:NewToggle("Zombie", "Will farm the zombie boss", function(state)
-    if state then
-        _G.Zombie = true
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    else
-        _G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    end
-end)
-
-Section:NewToggle("Marine", "Will farm the marine boss", function(state)
-    if state then
-        _G.Zombie = false
-_G.MarineBoss = true
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    else
-_G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    end
-end)
-
-Section:NewToggle("Arlong", "Will farm the arlong boss", function(state)
-    if state then
-        _G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = true
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    else
-        _G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    end
-end)
-
-Section:NewToggle("Gorilla", "Will farm the gorilla boss", function(state)
-    if state then
-        _G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = true
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    else
-        _G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    end
-end)
-
-Section:NewToggle("Enel", "Will farm the Enel boss", function(state)
-    if state then
-        _G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = true
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    else
-        _G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    end
-end)
-
-Section:NewToggle("Mihawk", "Will farm the Mihawk boss", function(state)
-    if state then
-        _G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = true
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    else
-        _G.Zombie = false
-_G.MarineBoss = false
-_G.Arlong = false
-_G.Gorila = false
-_G.Enel = false
-_G.Mihawk = false
-
-spawn(function()
-while wait() do
-if _G.Zombie == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(1822.88269, 217.496246, -2469.17969)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(1823.216064453125, 189.07374572753906, -2468.97900390625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.MarineBoss == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-4805.07275, 224.6577, -3043.62988, -0.0532366559)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-4806.40673828125, 192.47412109375, -3043.26513671875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Arlong == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-3694.00464, 209.978256, -6630.76807)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-3693.870361328125, 185.2244110107422, -6630.6884765625)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Gorila == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1489.33203, 293.952179, 1500.66003)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1490.60546875, 274.18450927734375, 1500.6180419921875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Enel == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-5401.76758, 3043.34912, 1420.1405)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-5401.248046875, 3016.869873046875, 1419.3779296875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-
-spawn(function()
-while wait() do
-if _G.Mihawk == true then
-local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
-local location = CFrame.new(-1448.38867, 230.328812, -678.783997)
-local humanoid = game.Players.LocalPlayer.Character.Humanoid
-humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-wait()
-pl.CFrame = location
-    local args = {
-    [1] = "Thunder",
-    [2] = Vector3.new(-1448.784912109375, 184.08502197265625, -679.248046875)
-}
-
-game:GetService("ReplicatedStorage").RemoteFolder.Damage:FireServer(unpack(args))
-end
-end
-end)
-    end
 end)
 
 local Tab = Window:NewTab("GUI Part 2")
