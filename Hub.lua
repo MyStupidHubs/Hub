@@ -549,6 +549,7 @@ Section:NewButton("Kill Aura (Close Range)", "Just attack and you will hit the b
 local x = 10
 local y = 10
 local z = 10
+local searchRadius = 200 -- Ajuste o raio conforme necessário
 
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
@@ -557,11 +558,17 @@ local runService = game:GetService("RunService")
 local function getNearestHumanoid()
     local nearestHumanoid = nil
     local nearestDistance = math.huge
+    local characterPosition = character.HumanoidRootPart.Position
 
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= player.Name then
-            local humanoidRootPart = v.Parent.HumanoidRootPart
-            local distance = (humanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
+    -- Verifica todos os objetos no workspace dentro do raio específico
+    for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
+        characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
+        characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
+    ), nil, math.huge)) do
+        local parent = v.Parent
+        if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name then
+            local humanoidRootPart = parent.HumanoidRootPart
+            local distance = (humanoidRootPart.Position - characterPosition).Magnitude
 
             if distance < nearestDistance then
                 nearestHumanoid = humanoidRootPart
@@ -587,10 +594,10 @@ local function updateHitbox()
 end
 
 local function resetHitbox()
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 0 and v.CanCollide == false then
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
             v.Size = Vector3.new(2, 2, 1)
-            v.Transparency = 1
+            v.Transparency = 0
             v.CanCollide = true
         end
     end
@@ -607,6 +614,7 @@ Section:NewButton("Kill Aura (Mid Range)", "Just attack and you will hit the bos
 local x = 50
 local y = 50
 local z = 50
+local searchRadius = 200 -- Ajuste o raio conforme necessário
 
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
@@ -615,11 +623,17 @@ local runService = game:GetService("RunService")
 local function getNearestHumanoid()
     local nearestHumanoid = nil
     local nearestDistance = math.huge
+    local characterPosition = character.HumanoidRootPart.Position
 
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= player.Name then
-            local humanoidRootPart = v.Parent.HumanoidRootPart
-            local distance = (humanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
+    -- Verifica todos os objetos no workspace dentro do raio específico
+    for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
+        characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
+        characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
+    ), nil, math.huge)) do
+        local parent = v.Parent
+        if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name then
+            local humanoidRootPart = parent.HumanoidRootPart
+            local distance = (humanoidRootPart.Position - characterPosition).Magnitude
 
             if distance < nearestDistance then
                 nearestHumanoid = humanoidRootPart
@@ -645,10 +659,10 @@ local function updateHitbox()
 end
 
 local function resetHitbox()
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 0 and v.CanCollide == false then
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
             v.Size = Vector3.new(2, 2, 1)
-            v.Transparency = 1
+            v.Transparency = 0
             v.CanCollide = true
         end
     end
@@ -665,6 +679,7 @@ Section:NewButton("Kill Aura (Long Range)", "Just attack and you will hit the bo
 local x = 100
 local y = 100
 local z = 100
+local searchRadius = 200 -- Ajuste o raio conforme necessário
 
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
@@ -673,11 +688,17 @@ local runService = game:GetService("RunService")
 local function getNearestHumanoid()
     local nearestHumanoid = nil
     local nearestDistance = math.huge
+    local characterPosition = character.HumanoidRootPart.Position
 
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v.Name == "Humanoid" and v.Parent:FindFirstChild("HumanoidRootPart") ~= nil and v.Parent.Name ~= player.Name then
-            local humanoidRootPart = v.Parent.HumanoidRootPart
-            local distance = (humanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
+    -- Verifica todos os objetos no workspace dentro do raio específico
+    for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
+        characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
+        characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
+    ), nil, math.huge)) do
+        local parent = v.Parent
+        if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name then
+            local humanoidRootPart = parent.HumanoidRootPart
+            local distance = (humanoidRootPart.Position - characterPosition).Magnitude
 
             if distance < nearestDistance then
                 nearestHumanoid = humanoidRootPart
@@ -703,10 +724,10 @@ local function updateHitbox()
 end
 
 local function resetHitbox()
-    for i, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 0 and v.CanCollide == false then
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
             v.Size = Vector3.new(2, 2, 1)
-            v.Transparency = 1
+            v.Transparency = 0
             v.CanCollide = true
         end
     end
@@ -715,6 +736,9 @@ end
 player.CharacterAdded:Connect(function(newCharacter)
     character = newCharacter
     resetHitbox()
+end)
+
+runService.RenderStepped:Connect(updateHitbox)
 end)
 
 runService.RenderStepped:Connect(updateHitbox)
