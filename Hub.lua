@@ -546,18 +546,31 @@ end)
 local Tab = Window:NewTab("U3BB")
 local Section = Tab:NewSection("Misc")
 Section:NewButton("No Attacks", "Simply delete the bosses attacks, basically immortal", function()
-    local Workspace = game:GetService("Workspace")
+local Workspace = game:GetService("Workspace")
 local Debris = game:GetService("Debris")
 
-local function hasHumanoid(instance)
-    return instance:FindFirstAncestorWhichIsA("Model") and instance:FindFirstAncestorWhichIsA("Model"):FindFirstChildOfClass("Humanoid") ~= nil
+local function containsHumanoid(instance)
+    if instance:IsA("Model") then
+        for _, descendant in pairs(instance:GetDescendants()) do
+            if descendant:IsA("Humanoid") then
+                return true
+            end
+        end
+    end
+    return false
 end
 
 local function onChildAdded(child)
-    if child:IsA("BasePart") and not hasHumanoid(child) then
-        -- Adiciona o objeto à lista de Debris para remoção rápida
-        Debris:AddItem(child, 0)  -- O segundo parâmetro é o tempo antes de remover (0 remove imediatamente)
-        print("Objeto sem Humanoid deletado:", child:GetFullName())
+    -- Verifica se o child é um Model ou BasePart
+    if child:IsA("BasePart") or child:IsA("Model") then
+        -- Espera um pequeno intervalo para garantir que o modelo esteja completamente carregado
+        wait(0.1)
+        if containsHumanoid(child) then
+            print("Objeto contém Humanoid e não foi deletado:", child:GetFullName())
+        else
+            Debris:AddItem(child, 0)  -- Remove imediatamente
+            print("Objeto sem Humanoid deletado:", child:GetFullName())
+        end
     end
 end
 
