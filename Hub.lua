@@ -641,7 +641,7 @@ Section:NewButton("Kill Aura (Close Range)", "Just attack and you will hit the b
             nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
             nearestHumanoidRootPart.Transparency = 1
             nearestHumanoidRootPart.CanCollide = false
-            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
+            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.9)
         end
     end
 
@@ -706,7 +706,7 @@ Section:NewButton("Kill Aura (Mid Range)", "Just attack and you will hit the bos
             nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
             nearestHumanoidRootPart.Transparency = 1
             nearestHumanoidRootPart.CanCollide = false
-            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
+            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.9)
         end
     end
 
@@ -771,7 +771,7 @@ Section:NewButton("Kill Aura (Long Range)", "Just attack and you will hit the bo
             nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
             nearestHumanoidRootPart.Transparency = 1
             nearestHumanoidRootPart.CanCollide = false
-            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
+            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.9)
         end
     end
 
