@@ -554,9 +554,7 @@ local exceptions = {
     "FaceParasite",
     "FreshPortal",
     "HorrorSans",
-    "Dust Sans",
-    "FightButton",
-    "FinalDoor"
+    "Dust Sans"
 }
 
 local function containsHumanoid(instance)
@@ -571,7 +569,15 @@ local function containsHumanoid(instance)
 end
 
 local function isException(instance)
-    return (instance:IsA("Model") or instance:IsA("BasePart")) and table.find(exceptions, instance.Name)
+    return instance:IsA("Model") and table.find(exceptions, instance.Name)
+end
+
+local function deletePhantomPursuer()
+    local phantomPursuer = Workspace:FindFirstChild("BattleArena") and Workspace.BattleArena:FindFirstChild("Phantom Pursuer")
+    if phantomPursuer then
+        Debris:AddItem(phantomPursuer, 0)  -- Remove imediatamente
+        print("Phantom Pursuer deletado:", phantomPursuer:GetFullName())
+    end
 end
 
 local function onChildAdded(child)
@@ -586,6 +592,8 @@ local function onChildAdded(child)
             print("Objeto sem Humanoid deletado:", child:GetFullName())
         end
     end
+    
+    deletePhantomPursuer()  -- Verifica e deleta Phantom Pursuer
 end
 
 Workspace.ChildAdded:Connect(onChildAdded)
