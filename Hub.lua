@@ -565,7 +565,9 @@ local function onChildAdded(child)
     if child:IsA("BasePart") or child:IsA("Model") then
         -- Espera um pequeno intervalo para garantir que o modelo esteja completamente carregado
         wait(0.1)
-        if containsHumanoid(child) then
+        if child:IsA("Model") and child.Name == "DreamSans" then
+            print("DreamSans não será deletado:", child:GetFullName())
+        elseif containsHumanoid(child) then
             print("Objeto contém Humanoid e não foi deletado:", child:GetFullName())
         else
             Debris:AddItem(child, 0)  -- Remove imediatamente
