@@ -821,90 +821,64 @@ for _, child in ipairs(container:GetChildren()) do
 end
 end)
 Section:NewButton("Boss Health Bar", "Simply a bar like a boss fight.", function()
--- Referências necessárias
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local runService = game:GetService("RunService")
 
--- Função para criar a barra de saúde
 local function createHealthBar(parent, position)
     local healthBarBackground = Instance.new("Frame")
     healthBarBackground.Size = UDim2.new(0.3, 0, 0.05, 0)
     healthBarBackground.Position = position
-    healthBarBackground.BackgroundColor3 = Color3.new(0, 0, 0)
+    healthBarBackground.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    healthBarBackground.BorderSizePixel = 2
+    healthBarBackground.BorderColor3 = Color3.fromRGB(0, 255, 0)
     healthBarBackground.Parent = parent
 
     local healthBar = Instance.new("Frame")
     healthBar.Size = UDim2.new(1, 0, 1, 0)
-    healthBar.BackgroundColor3 = Color3.new(1, 0, 0)
+    healthBar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     healthBar.Parent = healthBarBackground
 
     local healthLabel = Instance.new("TextLabel")
     healthLabel.Size = UDim2.new(1, 0, 1, 0)
     healthLabel.Position = UDim2.new(0, 0, 0, 0)
     healthLabel.BackgroundTransparency = 1
-    healthLabel.TextColor3 = Color3.new(1, 1, 1)
+    healthLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     healthLabel.TextScaled = true
     healthLabel.Parent = healthBarBackground
 
     return healthBarBackground, healthBar, healthLabel
 end
 
--- Criar GUI
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
-local healthBarBackground1, healthBar1, healthLabel1 = createHealthBar(screenGui, UDim2.new(0.35, 0, 0.05, 0))
-local healthBarBackground2, healthBar2, healthLabel2 = createHealthBar(screenGui, UDim2.new(0.35, 0, 0.12, 0))
+local healthBarBackground, healthBar, healthLabel = createHealthBar(screenGui, UDim2.new(0.35, 0, 0.05, 0))
 
--- Função para encontrar os dois Humanoids mais próximos
-local function getTwoNearestHumanoids()
-    local humanoids = {}
+runService.Heartbeat:Connect(function()
+    local nearestHumanoid = nil
+    local minDistance = math.huge
+
     for _, v in pairs(workspace:GetDescendants()) do
         if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Parent.Name ~= player.Name then
-            table.insert(humanoids, v)
+            local distance = (v.Parent.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
+            if distance < minDistance then
+                minDistance = distance
+                nearestHumanoid = v
+            end
         end
     end
 
-    table.sort(humanoids, function(a, b)
-        local distanceA = (a.Parent.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
-        local distanceB = (b.Parent.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
-        return distanceA < distanceB
-    end)
-
-    return humanoids[1], humanoids[2]
-end
-
--- Atualizar as barras de saúde no evento Heartbeat
-runService.Heartbeat:Connect(function()
-    local nearestHumanoid1, nearestHumanoid2 = getTwoNearestHumanoids()
-
-    if nearestHumanoid1 then
-        if nearestHumanoid1.Health > 0 then
-            local healthFraction1 = nearestHumanoid1.Health / nearestHumanoid1.MaxHealth
-            healthBar1.Size = UDim2.new(healthFraction1, 0, 1, 0)
-            healthLabel1.Text = string.format("%d/%d", nearestHumanoid1.Health, nearestHumanoid1.MaxHealth)
-            healthBarBackground1.Visible = true
-        else
-            healthBarBackground1.Visible = false
-        end
+    if nearestHumanoid and nearestHumanoid.Health > 0 then
+        local healthFraction = nearestHumanoid.Health / nearestHumanoid.MaxHealth
+        healthBar.Size = UDim2.new(healthFraction, 0, 1, 0)
+        healthLabel.Text = string.format("HP: %d", math.floor(nearestHumanoid.Health))
+        healthBarBackground.Visible = true
     else
-        healthBarBackground1.Visible = false
-    end
-
-    if nearestHumanoid2 then
-        if nearestHumanoid2.Health > 0 then
-            local healthFraction2 = nearestHumanoid2.Health / nearestHumanoid2.MaxHealth
-            healthBar2.Size = UDim2.new(healthFraction2, 0, 1, 0)
-            healthLabel2.Text = string.format("%d/%d", nearestHumanoid2.Health, nearestHumanoid2.MaxHealth)
-            healthBarBackground2.Visible = true
-        else
-            healthBarBackground2.Visible = false
-        end
-    else
-        healthBarBackground2.Visible = false
+        healthBarBackground.Visible = false
     end
 end)
+
 	end)
 
 local Section = Tab:NewSection("Gold/XP Farm [Mine]")
