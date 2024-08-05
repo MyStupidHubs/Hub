@@ -1127,9 +1127,19 @@ Section:NewButton("Buy one Steak", "Buy one Sneak", function()
 fireclickdetector(clickdetector)
 end)
 Section:NewButton("Buy one Hush Puppy", "Buy one Hush Puppy", function()
-    local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
-
-fireclickdetector(clickdetector)
+local clickdetector = workspace:FindFirstChild("ExtraBossMaps")
+if clickdetector then
+    clickdetector = clickdetector:FindFirstChild("Stand")
+    if clickdetector then
+        clickdetector = clickdetector:FindFirstChild("Hush Puppy")
+        if clickdetector then
+            clickdetector = clickdetector:FindFirstChildOfClass("ClickDetector")
+            if clickdetector then
+                fireclickdetector(clickdetector)
+            end
+        end
+    end
+end
 end)
 Section:NewButton("Buy infinities Steaks", "Buy infinities Sneaks", function()
 while true do
@@ -1142,9 +1152,19 @@ end)
 Section:NewButton("Buy infinities Hush Puppys", "Buy infinities Hush Puppys", function()
 while true do
 wait()
-local clickdetector = Workspace.ExtraBossMaps.Stand.FaceStake.ClickDetector -- path to the click detector
-
-fireclickdetector(clickdetector)
+local clickdetector = workspace:FindFirstChild("ExtraBossMaps")
+if clickdetector then
+    clickdetector = clickdetector:FindFirstChild("Stand")
+    if clickdetector then
+        clickdetector = clickdetector:FindFirstChild("Hush Puppy")
+        if clickdetector then
+            clickdetector = clickdetector:FindFirstChildOfClass("ClickDetector")
+            if clickdetector then
+                fireclickdetector(clickdetector)
+            end
+        end
+    end
+end
 end
 end)
 
