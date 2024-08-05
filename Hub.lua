@@ -611,7 +611,7 @@ end)
 
 local Section = Tab:NewSection("Hitbox [Not Mine]")
 
-Section:NewButton("Kill Aura", "Just attack and you will hit the boss", function()
+Section:NewButton("Kill Aura for Large Hitboxes", "Just attack and you will hit the boss", function()
     local x = 10
     local y = 10
     local z = 10
@@ -676,7 +676,7 @@ Section:NewButton("Kill Aura", "Just attack and you will hit the boss", function
     runService.RenderStepped:Connect(updateHitbox)
 end)
 
-Section:NewButton("Kill Aura 2", "If the other one didn't work, try this one", function()
+Section:NewButton("Kill Aura for Exact Hitboxes", "If the other one didn't work, try this one", function()
     local x = 10
     local y = 10
     local z = 10
@@ -719,7 +719,7 @@ Section:NewButton("Kill Aura 2", "If the other one didn't work, try this one", f
             nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
             nearestHumanoidRootPart.Transparency = 1
             nearestHumanoidRootPart.CanCollide = false
-            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
+            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.5)
         end
     end
 
