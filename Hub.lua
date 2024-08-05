@@ -555,7 +555,7 @@ local exceptions = {
     "FreshPortal",
     "HorrorSans",
     "Dust Sans",
-    "FightButton"
+    "FightButton" 
 }
 
 local function containsHumanoid(instance)
@@ -570,7 +570,7 @@ local function containsHumanoid(instance)
 end
 
 local function isException(instance)
-    return instance:IsA("Model") and table.find(exceptions, instance.Name)
+    return (instance:IsA("Model") or instance:IsA("BasePart")) and table.find(exceptions, instance.Name)
 end
 
 local function onChildAdded(child)
