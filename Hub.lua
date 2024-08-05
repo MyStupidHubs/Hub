@@ -545,7 +545,7 @@ end)
 
 local Tab = Window:NewTab("U3BB")
 local Section = Tab:NewSection("Misc")
-Section:NewButton("No Attacks", "Simply delete the bosses attacks, basically immortal", function()
+Section:NewButton("No Attacks (Buggy)", "Simply delete the bosses attacks, basically immortal", function()
 local Workspace = game:GetService("Workspace")
 local Debris = game:GetService("Debris")
 
