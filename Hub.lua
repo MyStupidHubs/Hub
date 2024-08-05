@@ -820,7 +820,7 @@ for _, child in ipairs(container:GetChildren()) do
     end
 end
 end)
-Section:NewButton("Boss Health Bar", "Simply a bar like a boss fight.", function()
+Section:NewButton("Boss Health Bar (Laggy)", "Simply a bar like a boss fight.", function()
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local runService = game:GetService("RunService")
