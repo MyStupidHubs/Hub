@@ -614,133 +614,133 @@ end)
 local Section = Tab:NewSection("Hitbox [Not Mine]")
 
 Section:NewButton("Kill Aura for Large Hitboxes", "Just attack and you will hit the boss", function()
-    local x = 10
-    local y = 10
-    local z = 10
-    local searchRadius = 200
+local x = 10
+local y = 10
+local z = 10
+local searchRadius = 200
 
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local runService = game:GetService("RunService")
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local runService = game:GetService("RunService")
 
-    local function getNearestHumanoid()
-        local nearestHumanoid = nil
-        local nearestDistance = math.huge
-        local characterPosition = character.HumanoidRootPart.Position
+local function getNearestHumanoid()
+    local nearestHumanoid = nil
+    local nearestDistance = math.huge
+    local characterPosition = character.HumanoidRootPart.Position
 
-        for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
-            characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
-            characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
-        ), nil, math.huge)) do
-            local parent = v.Parent
-            if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name then
-                local humanoidRootPart = parent.HumanoidRootPart
-                local distance = (humanoidRootPart.Position - characterPosition).Magnitude
+    for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
+        characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
+        characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
+    ), nil, math.huge)) do
+        local parent = v.Parent
+        if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name and parent.Name ~= "ParasyteForm" then
+            local humanoidRootPart = parent.HumanoidRootPart
+            local distance = (humanoidRootPart.Position - characterPosition).Magnitude
 
-                if distance < nearestDistance then
-                    nearestHumanoid = humanoidRootPart
-                    nearestDistance = distance
-                end
-            end
-        end
-
-        return nearestHumanoid
-    end
-
-    local function updateHitbox()
-        if not character or not character:FindFirstChild("HumanoidRootPart") then return end
-
-        local nearestHumanoidRootPart = getNearestHumanoid()
-
-        if nearestHumanoidRootPart then
-            nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
-            nearestHumanoidRootPart.Transparency = 1
-            nearestHumanoidRootPart.CanCollide = false
-            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.9)
-        end
-    end
-
-    local function resetHitbox()
-        for _, v in pairs(workspace:GetDescendants()) do
-            if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
-                v.Size = Vector3.new(2, 2, 1)
-                v.Transparency = 0
-                v.CanCollide = true
+            if distance < nearestDistance then
+                nearestHumanoid = humanoidRootPart
+                nearestDistance = distance
             end
         end
     end
 
-    player.CharacterAdded:Connect(function(newCharacter)
-        character = newCharacter
-        resetHitbox()
-    end)
+    return nearestHumanoid
+end
 
-    runService.RenderStepped:Connect(updateHitbox)
+local function updateHitbox()
+    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+
+    local nearestHumanoidRootPart = getNearestHumanoid()
+
+    if nearestHumanoidRootPart then
+        nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
+        nearestHumanoidRootPart.Transparency = 1
+        nearestHumanoidRootPart.CanCollide = false
+        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.9)
+    end
+end
+
+local function resetHitbox()
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
+            v.Size = Vector3.new(2, 2, 1)
+            v.Transparency = 0
+            v.CanCollide = true
+        end
+    end
+end
+
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    resetHitbox()
+end)
+
+runService.RenderStepped:Connect(updateHitbox)
 end)
 
 Section:NewButton("Kill Aura for Exact Hitboxes", "If the other one didn't work, try this one", function()
-    local x = 10
-    local y = 10
-    local z = 10
-    local searchRadius = 200
+local x = 10
+local y = 10
+local z = 10
+local searchRadius = 200
 
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
-    local runService = game:GetService("RunService")
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local runService = game:GetService("RunService")
 
-    local function getNearestHumanoid()
-        local nearestHumanoid = nil
-        local nearestDistance = math.huge
-        local characterPosition = character.HumanoidRootPart.Position
+local function getNearestHumanoid()
+    local nearestHumanoid = nil
+    local nearestDistance = math.huge
+    local characterPosition = character.HumanoidRootPart.Position
 
-        for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
-            characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
-            characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
-        ), nil, math.huge)) do
-            local parent = v.Parent
-            if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name then
-                local humanoidRootPart = parent.HumanoidRootPart
-                local distance = (humanoidRootPart.Position - characterPosition).Magnitude
+    for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
+        characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
+        characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
+    ), nil, math.huge)) do
+        local parent = v.Parent
+        if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name and parent.Name ~= "ParasyteForm" then
+            local humanoidRootPart = parent.HumanoidRootPart
+            local distance = (humanoidRootPart.Position - characterPosition).Magnitude
 
-                if distance < nearestDistance then
-                    nearestHumanoid = humanoidRootPart
-                    nearestDistance = distance
-                end
-            end
-        end
-
-        return nearestHumanoid
-    end
-
-    local function updateHitbox()
-        if not character or not character:FindFirstChild("HumanoidRootPart") then return end
-
-        local nearestHumanoidRootPart = getNearestHumanoid()
-
-        if nearestHumanoidRootPart then
-            nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
-            nearestHumanoidRootPart.Transparency = 1
-            nearestHumanoidRootPart.CanCollide = false
-            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.5)
-        end
-    end
-
-    local function resetHitbox()
-        for _, v in pairs(workspace:GetDescendants()) do
-            if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
-                v.Size = Vector3.new(2, 2, 1)
-                v.Transparency = 0
-                v.CanCollide = true
+            if distance < nearestDistance then
+                nearestHumanoid = humanoidRootPart
+                nearestDistance = distance
             end
         end
     end
 
-    player.CharacterAdded:Connect(function(newCharacter)
-        character = newCharacter
-        resetHitbox()
-    end)
+    return nearestHumanoid
+end
 
-    runService.RenderStepped:Connect(updateHitbox)
+local function updateHitbox()
+    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+
+    local nearestHumanoidRootPart = getNearestHumanoid()
+
+    if nearestHumanoidRootPart then
+        nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
+        nearestHumanoidRootPart.Transparency = 1
+        nearestHumanoidRootPart.CanCollide = false
+        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.5)
+    end
+end
+
+local function resetHitbox()
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
+            v.Size = Vector3.new(2, 2, 1)
+            v.Transparency = 0
+            v.CanCollide = true
+        end
+    end
+end
+
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    resetHitbox()
+end)
+
+runService.RenderStepped:Connect(updateHitbox)
 end)
 
 Section:NewSlider("Disbelief Papyrus Hitbox", "Put whatever size you want, the result is not pretty lol", 1000, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
