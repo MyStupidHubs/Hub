@@ -553,7 +553,8 @@ local exceptions = {
     "DreamSans",
     "FaceParasite",
     "FreshPortal",
-    "HorrorSans"
+    "HorrorSans",
+    "Dust Sans"
 }
 
 local function containsHumanoid(instance)
