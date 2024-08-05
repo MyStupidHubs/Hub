@@ -634,9 +634,9 @@ end)
 local Section = Tab:NewSection("Hitbox [Not Mine]")
 
 Section:NewButton("Kill Aura for Large Weapons", "Just attack and you will hit the boss", function()
-local x = 15
-local y = 15
-local z = 15
+local x = 30
+local y = 30
+local z = 30
 local searchRadius = 200
 
 local player = game.Players.LocalPlayer
