@@ -549,6 +549,13 @@ Section:NewButton("No Attacks", "Simply delete the bosses attacks, basically imm
 local Workspace = game:GetService("Workspace")
 local Debris = game:GetService("Debris")
 
+local exceptions = {
+    "DreamSans",
+    "FaceParasite",
+    "FreshPortal",
+    "HorrorSans"
+}
+
 local function containsHumanoid(instance)
     if instance:IsA("Model") then
         for _, descendant in pairs(instance:GetDescendants()) do
@@ -560,13 +567,15 @@ local function containsHumanoid(instance)
     return false
 end
 
+local function isException(instance)
+    return instance:IsA("Model") and table.find(exceptions, instance.Name)
+end
+
 local function onChildAdded(child)
-    -- Verifica se o child é um Model ou BasePart
     if child:IsA("BasePart") or child:IsA("Model") then
-        -- Espera um pequeno intervalo para garantir que o modelo esteja completamente carregado
         wait(0.1)
-        if child:IsA("Model") and child.Name == "DreamSans" then
-            print("DreamSans não será deletado:", child:GetFullName())
+        if isException(child) then
+            print("Objeto de exceção não será deletado:", child:GetFullName())
         elseif containsHumanoid(child) then
             print("Objeto contém Humanoid e não foi deletado:", child:GetFullName())
         else
