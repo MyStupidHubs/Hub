@@ -623,9 +623,9 @@ end)
 local Section = Tab:NewSection("Hitbox [Not Mine]")
 
 Section:NewButton("Kill Aura for Large Hitboxes", "Just attack and you will hit the boss", function()
-local x = 10
-local y = 10
-local z = 10
+local x = 15
+local y = 15
+local z = 15
 local searchRadius = 200
 
 local player = game.Players.LocalPlayer
@@ -688,9 +688,9 @@ runService.RenderStepped:Connect(updateHitbox)
 end)
 
 Section:NewButton("Kill Aura for Exact Hitboxes", "If the other one didn't work, try this one", function()
-local x = 10
-local y = 10
-local z = 10
+local x = 15
+local y = 15
+local z = 15
 local searchRadius = 200
 
 local player = game.Players.LocalPlayer
