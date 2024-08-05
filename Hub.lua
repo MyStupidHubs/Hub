@@ -768,6 +768,29 @@ for _, child in ipairs(container:GetChildren()) do
     end
 end
 end)
+
+Section:NewButton("Auto Boss Fight Button", "Teleports the FightButton of Red fight to you", function()
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+
+local function teleportFightButton(button, player)
+    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local characterRoot = player.Character.HumanoidRootPart
+        button.CFrame = characterRoot.CFrame
+    end
+end
+
+local function onChildAdded(child)
+    if child:IsA("BasePart") and child.Name == "FightButton" then
+        local player = Players.LocalPlayer
+        teleportFightButton(child, player)
+        print("FightButton teleportado para o jogador:", child:GetFullName())
+    end
+end
+
+Workspace.ChildAdded:Connect(onChildAdded)
+end)
+
 Section:NewButton("Boss Health Bar (Laggy)", "Simply a bar like a boss fight.", function()
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
