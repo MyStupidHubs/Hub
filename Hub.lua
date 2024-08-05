@@ -611,7 +611,7 @@ end)
 
 local Section = Tab:NewSection("Hitbox [Not Mine]")
 
-Section:NewButton("Kill Aura (Close Range)", "Just attack and you will hit the boss", function()
+Section:NewButton("Kill Aura", "Just attack and you will hit the boss", function()
     local x = 10
     local y = 10
     local z = 10
@@ -676,10 +676,10 @@ Section:NewButton("Kill Aura (Close Range)", "Just attack and you will hit the b
     runService.RenderStepped:Connect(updateHitbox)
 end)
 
-Section:NewButton("Kill Aura (Mid Range)", "Just attack and you will hit the boss", function()
-    local x = 50
-    local y = 50
-    local z = 50
+Section:NewButton("Kill Aura 2", "If the other one didn't work, try this one", function()
+    local x = 10
+    local y = 10
+    local z = 10
     local searchRadius = 200
 
     local player = game.Players.LocalPlayer
@@ -719,7 +719,7 @@ Section:NewButton("Kill Aura (Mid Range)", "Just attack and you will hit the bos
             nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
             nearestHumanoidRootPart.Transparency = 1
             nearestHumanoidRootPart.CanCollide = false
-            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.9)
+            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.8)
         end
     end
 
@@ -741,10 +741,10 @@ Section:NewButton("Kill Aura (Mid Range)", "Just attack and you will hit the bos
     runService.RenderStepped:Connect(updateHitbox)
 end)
 
-Section:NewButton("Kill Aura (Long Range)", "Just attack and you will hit the boss", function()
-    local x = 100
-    local y = 100
-    local z = 100
+Section:NewButton("Kill Aura 3", "If the other one didn't work, try this one", function()
+    local x = 10
+    local y = 10
+    local z = 10
     local searchRadius = 200
 
     local player = game.Players.LocalPlayer
@@ -784,7 +784,7 @@ Section:NewButton("Kill Aura (Long Range)", "Just attack and you will hit the bo
             nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
             nearestHumanoidRootPart.Transparency = 1
             nearestHumanoidRootPart.CanCollide = false
-            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.9)
+            nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.7)
         end
     end
 
