@@ -1387,92 +1387,17 @@ end
 end)
 local Section = Tab:NewSection("Training [Mine]")
 Section:NewButton("JJ'S", "It jumps and talks like they ask in training", function()
-local ScreenGui = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local TextBox = Instance.new("TextBox")
-local Button = Instance.new("TextButton")
-local CloseButton = Instance.new("TextButton")
+local Options = {
+    Keybind = 'Home', --> Keybind para mostrar/esconder a UI, mais informações sobre KeyCode: https://create.roblox.com/docs/reference/engine/enums/KeyCode
+    Tempo = 2.5, --> Tempo para enviar mensagem.
+    Rainbow = false, --> Deixar a UI mais colorida (true/false)
 
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
-Frame.Position = UDim2.new(0.35, 0, 0.35, 0)
-Frame.Size = UDim2.new(0.3, 0, 0.3, 0)
-Frame.Active = true
-Frame.Draggable = true
-
-TextBox.Parent = Frame
-TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextBox.Position = UDim2.new(0.1, 0, 0.1, 0)
-TextBox.Size = UDim2.new(0.8, 0, 0.2, 0)
-TextBox.PlaceholderText = "Digite um número até 500"
-TextBox.Font = Enum.Font.SourceSans
-TextBox.TextScaled = true
-TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
-
-Button.Parent = Frame
-Button.BackgroundColor3 = Color3.fromRGB(0, 122, 204)
-Button.Position = UDim2.new(0.3, 0, 0.4, 0)
-Button.Size = UDim2.new(0.4, 0, 0.2, 0)
-Button.Text = "Contar"
-Button.Font = Enum.Font.SourceSans
-Button.TextScaled = true
-Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-CloseButton.Parent = Frame
-CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-CloseButton.Position = UDim2.new(0.9, -20, 0, 5)
-CloseButton.Size = UDim2.new(0.1, -5, 0.1, -5)
-CloseButton.Text = "X"
-CloseButton.Font = Enum.Font.SourceSans
-CloseButton.TextScaled = true
-CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-local numbers = {
-    [1] = "UM", [2] = "DOIS", [3] = "TRÊS", [4] = "QUATRO", [5] = "CINCO", [6] = "SEIS", [7] = "SETE",
-    [8] = "OITO", [9] = "NOVE", [10] = "DEZ", [11] = "ONZE", [12] = "DOZE", [13] = "TREZE", [14] = "QUATORZE",
-    [15] = "QUINZE", [16] = "DEZESSEIS", [17] = "DEZESSETE", [18] = "DEZOITO", [19] = "DEZENOVE", [20] = "VINTE",
-    [30] = "TRINTA", [40] = "QUARENTA", [50] = "CINQUENTA", [60] = "SESSENTA", [70] = "SETENTA", [80] = "OITENTA",
-    [90] = "NOVENTA", [100] = "CEM", [200] = "DUZENTOS", [300] = "TREZENTOS", [400] = "QUATROCENTOS", [500] = "QUINHENTOS"
-}
-
-local function numberToWords(n)
-    if numbers[n] then
-        return numbers[n] .. " !"
-    elseif n < 30 then
-        return numbers[20] .. " E " .. numbers[n-20] .. " !"
-    elseif n < 100 then
-        local units = n % 10
-        return numbers[n - units] .. (units > 0 and " E " .. numbers[units] or "") .. " !"
-    elseif n < 200 then
-        return "CENTO E " .. numberToWords(n - 100)
-    elseif n < 1000 then
-        local hundreds = math.floor(n / 100) * 100
-        local remainder = n % 100
-        return numbers[hundreds] .. (remainder > 0 and " E " .. numberToWords(remainder) or "") .. " !"
-    end
-end
-
-Button.MouseButton1Click:Connect(function()
-    local num = tonumber(TextBox.Text)
-    if num and num > 0 and num <= 500 then
-        for i = 1, num do
-            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(numberToWords(i), "All")
-            local humanoid = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-            if humanoid then
-                humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-            end
-            wait(1.5) -- Increased delay between each number and jump
-        end
-    else
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Por favor, insira um número válido até 500", "All")
-    end
-end)
-
-CloseButton.MouseButton1Click:Connect(function()
-    ScreenGui:Destroy()
-end)
+    Language = {
+        UI = 'pt-br', --> Alterar a linguagem da UI, disponívels: pt-br, en-us
+        Words = 'pt-br' --> Alterar a linguagem dos número em extenso, disponívels: pt-br, en-us, es-es
+    },
+};
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Zv-yz/AutoJJs/main/Main.lua'))(Options);
 end)
 
 local Tab = Window:NewTab("Ultra Power Tycoon")
