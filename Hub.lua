@@ -1386,7 +1386,7 @@ while task.wait(0.1)do
 end
 end)
 local Section = Tab:NewSection("Training [Mine]")
-Section:NewButton("JJ'S", "It jumps and talks like they ask in training", function()
+Section:NewButton("JJ'S (Wave only)", "It jumps and talks like they ask in training", function()
 local Options = {
     Keybind = 'Home', --> Keybind para mostrar/esconder a UI, mais informações sobre KeyCode: https://create.roblox.com/docs/reference/engine/enums/KeyCode
     Tempo = 2.5, --> Tempo para enviar mensagem.
