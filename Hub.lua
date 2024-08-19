@@ -75,7 +75,9 @@ Section:NewSlider("Jumppower", "Just increase your jump", 500, 0, function(s) --
 end)
 
 local Section = Tab:NewSection("Scripts")
-
+Section:NewButton("Aimlock", "The name is self explonatory", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/PawsThePaw/Neutron.lua/main/MainNeutron.lua"))()
+end)
 Section:NewButton("FE Telekinesis", "The name itself says what it is", function()
     -- Q & E - bring closer and further
 -- R - Roates Block
@@ -414,18 +416,6 @@ Section:NewButton("Remote SPY", "Remote SPY", function()
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/exxtremestuffs/SimpleSpySource/master/SimpleSpy.lua'),true))()
 end)
 
-Section:NewButton("Hydroxide Tool", "Remote SPY", function()
-    local owner = "Hosvile"
-local branch = "revision"
-
-local function webImport(file)
-    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/MC-Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
-end
-
-webImport("init")
-webImport("ui/main")
-end)
-
 Section:NewButton("Anti afk", "Don't let the game kick you for staying afk", function()
     local vu = game:GetService("VirtualUser")
 game:GetService("Players").LocalPlayer.Idled:connect(function()
@@ -435,6 +425,7 @@ game:GetService("Players").LocalPlayer.Idled:connect(function()
 end)
 end)
 
+local Section = Tab:NewSection("Others")
 Section:NewButton("Chat Bypass", "You can swear all you want lol", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/T4FEyvHH"))()
 end)
@@ -498,6 +489,7 @@ Players.PlayerRemoving:Connect(function(plr)
     end
 end)
 end)
+
 
 local Tab = Window:NewTab("UTMM Games")
 local Section = Tab:NewSection("Misc [Not mine]")
@@ -2487,5 +2479,30 @@ end
 end
 end
 end
+end
+end)
+local Section = Tab:NewSection("The Strongest Battlegrounds")
+Section:NewButton("GUI", "Animations, Emotes, Moves etc", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/JayXSama/ray-makk/main/Loader"))()
+end)
+Section:NewButton("Gojo Moveset", "You can't desativate this, you will have to rejoin", function()
+    local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Função que será chamada ao respawnar
+local function onCharacterAdded(character)
+    if LocalPlayer.Character == character then
+        print("Meu personagem respawnou!")
+        
+        loadstring(game:HttpGet("https://pastebin.com/raw/Y3uyGSK6"))()
+    end
+end
+
+-- Conectar ao evento de respawn do jogador local
+LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+-- Conectar também para o personagem atual (caso já esteja no jogo)
+if LocalPlayer.Character then
+    onCharacterAdded(LocalPlayer.Character)
 end
 end)
