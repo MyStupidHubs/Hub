@@ -63,6 +63,9 @@ local Window = Library.CreateLib("Stub Hub", colors)
 
 local Tab = Window:NewTab("General Misc")
 local Section = Tab:NewSection("Made by a*_a*****2")
+Section1:NewKeybind("Toggle ui", "Its does nothing, its just to open and close ui", Enum.KeyCode.F6, function()
+    Library:ToggleUI()
+end)
 local Section = Tab:NewSection("Player")
 Section:NewSlider("Walkspeed", "Just increase your speed", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
