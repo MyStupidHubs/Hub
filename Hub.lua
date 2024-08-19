@@ -53,17 +53,17 @@ UIAspectRatioConstraint_2.AspectRatio = 2.778
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
 local colors = {
-    SchemeColor = Color3.fromRGB(26,22,86),
-    Background = Color3.fromRGB(21,21,108),
-    Header = Color3.fromRGB(24,12,61),
-    TextColor = Color3.fromRGB(49,52,161),
-    ElementColor = Color3.fromRGB(18,9,45)
+    SchemeColor = Color3.fromRGB(26, 22, 86),
+    Background = Color3.fromRGB(21, 21, 108),
+    Header = Color3.fromRGB(24, 12, 61),
+    TextColor = Color3.fromRGB(49, 52, 161),
+    ElementColor = Color3.fromRGB(18, 9, 45)
 }
-local Window = Library.CreateLib("Stub Hub", colors)
 
+local Window = Library.CreateLib("Stub Hub", colors)
 local Tab = Window:NewTab("General Misc")
 local Section = Tab:NewSection("Made by a*_a*****2")
-Section:NewKeybind("Toggle ui", "Just Toggle the ui", Enum.KeyCode.F6, function()
+Section:NewKeybind("Toggle UI", "Just Toggle the UI", Enum.KeyCode.F6, function()
     Library:ToggleUI()
 end)
 local Section = Tab:NewSection("Player")
