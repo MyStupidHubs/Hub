@@ -2410,7 +2410,6 @@ end)
 end)
 
 local Section = Tab:NewSection("One Piece Tycoon")
-local Section = Tab:NewSection("Auto Click First Dropper [Not Mine]")
 Section:NewButton("World Government", "it will automatically click on the first dropper", function()
     _G.toggle = true
 while _G.toggle do
@@ -2467,8 +2466,7 @@ wait()
 fireclickdetector(game:GetService("Workspace")["Zednov's Tycoon Kit"].Tycoons["Big Mom Pirates"].PurchasedObjects.Mine.Clicker.ClickDetector)
 end
 end)
-local Section = Tab:NewSection("Fruit and Haki Grabber [Not Mine]")
-Section:NewToggle("Fruit and Haki", "Automatically pick up Fruits and Hakis", function(state)
+Section:NewToggle("Fruit and Haki Grabber [Not Mine]", "Automatically pick up Fruits and Hakis", function(state)
     if state then
         _G.toggle = true
 while _G.toggle do
