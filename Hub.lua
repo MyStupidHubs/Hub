@@ -2517,3 +2517,95 @@ if LocalPlayer.Character then
     onCharacterAdded(LocalPlayer.Character)
 end
 end)
+
+local Section = Tab:NewSection("Sonic.EXE: The disaster")
+Section:NewButton("Tails", "Select Tails as quickly as possible, need to rejoin if you want to change", function()
+    while true do
+local args = {
+    [1] = "tails"
+}
+
+game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
+wait(0.1)
+end
+end)
+Section:NewButton("Knuckles", "Select Knuckles as quickly as possible, need to rejoin if you want to change", function()
+    while true do
+local args = {
+    [1] = "knuckles"
+}
+
+game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
+wait(0.1)
+end
+end)
+Section:NewButton("Eggman", "Select Eggman as quickly as possible, need to rejoin if you want to change", function()
+    while true do
+local args = {
+    [1] = "eggman"
+}
+
+game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
+wait(0.1)
+end
+end)
+Section:NewButton("Amy", "Select Amy as quickly as possible, need to rejoin if you want to change", function()
+    while true do
+local args = {
+    [1] = "amy"
+}
+
+game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
+wait(0.1)
+end
+end)
+Section:NewButton("Cream", "Select cream as quickly as possible, need to rejoin if you want to change", function()
+    while true do
+local args = {
+    [1] = "cream"
+}
+
+game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
+wait(0.1)
+end
+end)
+Section:NewButton("Sally", "Select Sally as quickly as possible, need to rejoin if you want to change", function()
+    while true do
+local args = {
+    [1] = "sally"
+}
+
+game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
+wait(0.1)
+end
+end)
+Section:NewButton("Shadow", "Select Shadow as quickly as possible, need to rejoin if you want to change", function()
+    while true do
+local args = {
+    [1] = "shadow"
+}
+
+game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
+wait(0.1)
+end
+end)
+Section:NewButton("Rouge", "Select Rouge as quickly as possible, need to rejoin if you want to change", function()
+    while true do
+local args = {
+    [1] = "rouge"
+}
+
+game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
+wait(0.1)
+end
+end)
+Section:NewButton("Metal Sonic", "Select Metal Sonic as quickly as possible, need to rejoin if you want to change", function()
+    while true do
+local args = {
+    [1] = "metalsonic"
+}
+
+game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
+wait(0.1)
+end
+end)
