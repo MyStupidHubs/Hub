@@ -1260,7 +1260,57 @@ if clickdetector then
 end
 end
 end)
+local Section = Tab:NewSection("Halloween")
+Section:NewButton("Farm Pumpkins", "It will teleport you to all the locations of pumpkins spawns", function()
+    local Players = game:GetService("Players")
+local pumpkinLocations = workspace:WaitForChild("Halloween"):WaitForChild("PumpkinLocations")
 
+-- Função para teleportar o jogador para uma posição específica
+local function teleportPlayerToLocation(player, location)
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        player.Character.HumanoidRootPart.CFrame = location.CFrame
+    end
+end
+
+-- Função para armazenar a posição original do jogador
+local function getPlayerPosition(player)
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        return player.Character.HumanoidRootPart.CFrame
+    end
+    return nil
+end
+
+-- Teleporta os jogadores e depois os retorna à posição original
+local function teleportPlayers()
+    local originalPositions = {}
+
+    -- Armazena as posições originais dos jogadores
+    for _, player in ipairs(Players:GetPlayers()) do
+        originalPositions[player.UserId] = getPlayerPosition(player)
+    end
+
+    -- Teleporta para cada parte
+    for _, player in ipairs(Players:GetPlayers()) do
+        for _, location in ipairs(pumpkinLocations:GetChildren()) do
+            if location:IsA("Part") then
+                teleportPlayerToLocation(player, location)
+                wait(1) -- Espera 1 segundo entre os teletransportes
+            end
+        end
+    end
+
+    -- Retorna os jogadores para suas posições originais
+    for _, player in ipairs(Players:GetPlayers()) do
+        local originalPosition = originalPositions[player.UserId]
+        if originalPosition then
+            player.Character.HumanoidRootPart.CFrame = originalPosition
+        end
+    end
+end
+
+-- Chama a função de teleportação
+teleportPlayers()
+end)
 local Section = Tab:NewSection("Teleports [Mine]")
 Section:NewButton("Tem shop", "Teleports you to Tem shop", function()
 local pl = game.Players.LocalPlayer.Character.HumanoidRootPart
