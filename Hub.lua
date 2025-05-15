@@ -860,64 +860,94 @@ Workspace.ChildAdded:Connect(onChildAdded)
 end)
 
 Section:NewButton("Boss Health Bar (Laggy)", "Simply a bar like a boss fight.", function()
-local player = game.Players.LocalPlayer
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
-local runService = game:GetService("RunService")
+local camera = workspace.CurrentCamera
 
-local function createHealthBar(parent, position)
-    local healthBarBackground = Instance.new("Frame")
-    healthBarBackground.Size = UDim2.new(0.3, 0, 0.05, 0)
-    healthBarBackground.Position = position
-    healthBarBackground.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    healthBarBackground.BorderSizePixel = 2
-    healthBarBackground.BorderColor3 = Color3.fromRGB(0, 255, 0)
-    healthBarBackground.Parent = parent
+-- Configuração da barra
+local gui = Instance.new("ScreenGui")
+gui.Name = "BossBarGui"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
 
-    local healthBar = Instance.new("Frame")
-    healthBar.Size = UDim2.new(1, 0, 1, 0)
-    healthBar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    healthBar.Parent = healthBarBackground
+local barBackground = Instance.new("Frame")
+barBackground.Name = "BarBackground"
+barBackground.Size = UDim2.new(0.6, 0, 0.05, 0)
+barBackground.Position = UDim2.new(0.2, 0, 0.05, 0)
+barBackground.BackgroundColor3 = Color3.new(0,0,0)
+barBackground.BorderSizePixel = 2
+barBackground.Visible = false
+barBackground.Parent = gui
 
-    local healthLabel = Instance.new("TextLabel")
-    healthLabel.Size = UDim2.new(1, 0, 1, 0)
-    healthLabel.Position = UDim2.new(0, 0, 0, 0)
-    healthLabel.BackgroundTransparency = 1
-    healthLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    healthLabel.TextScaled = true
-    healthLabel.Parent = healthBarBackground
+local healthBar = Instance.new("Frame")
+healthBar.Name = "HealthBar"
+healthBar.Size = UDim2.new(1, 0, 1, 0)
+healthBar.BackgroundColor3 = Color3.fromRGB(255,0,0)
+healthBar.BorderSizePixel = 0
+healthBar.Parent = barBackground
 
-    return healthBarBackground, healthBar, healthLabel
-end
+local barText = Instance.new("TextLabel")
+barText.Name = "BarText"
+barText.Size = UDim2.new(1, 0, 1, 0)
+barText.BackgroundTransparency = 1
+barText.Text = ""
+barText.Font = Enum.Font.GothamBold
+barText.TextScaled = true
+barText.TextColor3 = Color3.new(1,1,1)
+barText.Parent = barBackground
 
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = player:WaitForChild("PlayerGui")
+-- Função para achar Humanoid mais perto
+local function getClosestHumanoid()
+    local minDist = math.huge
+    local closestHumanoid = nil
+    local closestModel = nil
+    local myPos = camera.CFrame.Position
 
-local healthBarBackground, healthBar, healthLabel = createHealthBar(screenGui, UDim2.new(0.35, 0, 0.05, 0))
-
-runService.Heartbeat:Connect(function()
-    local nearestHumanoid = nil
-    local minDistance = math.huge
-
-    for _, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Parent.Name ~= player.Name then
-            local distance = (v.Parent.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
-            if distance < minDistance then
-                minDistance = distance
-                nearestHumanoid = v
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if obj:IsA("Humanoid") and obj.Health > 0 and obj.Parent ~= character then
+            -- IGNORA PLAYERS!
+            if not game.Players:GetPlayerFromCharacter(obj.Parent) then
+                local rootPart = obj.Parent:FindFirstChild("HumanoidRootPart")
+                if rootPart then
+                    local dist = (rootPart.Position - myPos).Magnitude
+                    if dist < minDist then
+                        minDist = dist
+                        closestHumanoid = obj
+                        closestModel = obj.Parent
+                    end
+                end
             end
         end
     end
 
-    if nearestHumanoid and nearestHumanoid.Health > 0 then
-        local healthFraction = nearestHumanoid.Health / nearestHumanoid.MaxHealth
-        healthBar.Size = UDim2.new(healthFraction, 0, 1, 0)
-        healthLabel.Text = string.format("HP: %d", math.floor(nearestHumanoid.Health))
-        healthBarBackground.Visible = true
-    else
-        healthBarBackground.Visible = false
+    return closestHumanoid, closestModel
+end
+
+local trackedHumanoid = nil
+local trackedName = ""
+
+-- Atualiza a barra a cada frame
+RunService.RenderStepped:Connect(function()
+    if not trackedHumanoid or trackedHumanoid.Parent == nil or trackedHumanoid.Health <= 0 then
+        -- Procura novo Humanoid
+        trackedHumanoid, trackedModel = getClosestHumanoid()
+        if trackedHumanoid then
+            trackedName = trackedModel.Name
+            barBackground.Visible = true
+        else
+            barBackground.Visible = false
+        end
+    end
+
+    if trackedHumanoid and trackedHumanoid.Parent and trackedHumanoid.Health > 0 then
+        -- Atualiza barra de vida
+        local healthPercent = trackedHumanoid.Health / trackedHumanoid.MaxHealth
+        healthBar.Size = UDim2.new(healthPercent, 0, 1, 0)
+        barText.Text = trackedName .. " - " .. math.floor(trackedHumanoid.Health) .. " / " .. math.floor(trackedHumanoid.MaxHealth)
     end
 end)
-
 	end)
 
 local Section = Tab:NewSection("Gold/XP Farm [Mine]")
