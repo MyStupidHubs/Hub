@@ -948,6 +948,7 @@ RunService.RenderStepped:Connect(function()
         barText.Text = trackedName .. " - " .. math.floor(trackedHumanoid.Health) .. " / " .. math.floor(trackedHumanoid.MaxHealth)
     end
 end)
+	
 	end)
 
 local Section = Tab:NewSection("Gold/XP Farm [Mine]")
