@@ -96,8 +96,11 @@ mt.__namecall = newcclosure(function(self, ...)
     local args = {...}
 
     if method == "PromptGamePassPurchase" then
-        local gamepassId = args[2]
-        print("🎟️ Gamepass ID detectado:", gamepassId)
+        print("🎟️ Gamepass ID detectado:", args[2])
+    elseif method == "PromptProductPurchase" then
+        print("🛍️ Developer Product ID detectado:", args[2])
+    elseif method == "PromptPurchase" then
+        print("💸 Item ID detectado:", args[2])
     end
 
     return old(self, unpack(args))
