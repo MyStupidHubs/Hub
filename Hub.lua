@@ -86,6 +86,26 @@ Section:NewSlider("Jumppower", "Just increase your jump", 500, 0, function(s) --
 end)
 
 local Section = Tab:NewSection("Scripts")
+Section:NewButton("Find Gamepass ID", "Click where you buy the gamepass, and look at the console (F9)", function()
+    local mt = getrawmetatable(game)
+local old = mt.__namecall
+setreadonly(mt, false)
+
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+
+    if method == "PromptGamePassPurchase" then
+        print("🎟️ Gamepass ID detectado:", args[2])
+    elseif method == "PromptProductPurchase" then
+        print("🛍️ Developer Product ID detectado:", args[2])
+    elseif method == "PromptPurchase" then
+        print("💸 Item ID detectado:", args[2])
+    end
+
+    return old(self, unpack(args))
+end)
+end)
 Section:NewButton("Aimlock", "The name is self explonatory", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/PawsThePaw/Neutron.lua/main/MainNeutron.lua"))()
 end)
