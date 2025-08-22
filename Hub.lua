@@ -711,7 +711,6 @@ coroutine.resume(Rejoin)
 end)
 
 local Section = Tab:NewSection("Hitbox")
-
 Section:NewButton("Reworked Kill Aura", "Just attack and you will hit the boss (You have to stay still)", function()
 -- LocalScript – StarterPlayerScripts
 -- Extensão contínua da HRP de NPCs + aimlock + offset oscilante 0.0↔0.5
@@ -917,10 +916,6 @@ end
 
 if LOCAL.Character then watchCharacter(LOCAL.Character) end
 LOCAL.CharacterAdded:Connect(watchCharacter)
-
-end)
-
-runService.RenderStepped:Connect(updateHitbox)
 end)
 
 Section:NewSlider("Disbelief Papyrus Hitbox", "Put whatever size you want, the result is not pretty lol", 1000, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
@@ -2791,4 +2786,5 @@ game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
 wait(0.1)
 end
 end)
+
 
