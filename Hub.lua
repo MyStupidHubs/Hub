@@ -710,133 +710,214 @@ end)
 coroutine.resume(Rejoin)
 end)
 
-local Section = Tab:NewSection("Hitbox [Not Mine]")
+local Section = Tab:NewSection("Hitbox")
 
-Section:NewButton("Kill Aura for Large Weapons", "Just attack and you will hit the boss", function()
-local x = 40
-local y = 40
-local z = 40
-local searchRadius = 200
+Section:NewButton("Reworked Kill Aura", "Just attack and you will hit the boss (You have to stay still)", function()
+-- LocalScript – StarterPlayerScripts
+-- Extensão contínua da HRP de NPCs + aimlock + offset oscilante 0.0↔0.5
 
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local runService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
-local function getNearestHumanoid()
-    local nearestHumanoid = nil
-    local nearestDistance = math.huge
-    local characterPosition = character.HumanoidRootPart.Position
+local LOCAL = Players.LocalPlayer
 
-    for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
-        characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
-        characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
-    ), nil, math.huge)) do
-        local parent = v.Parent
-        if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name and parent.Name ~= "ParasyteForm" then
-            local humanoidRootPart = parent.HumanoidRootPart
-            local distance = (humanoidRootPart.Position - characterPosition).Magnitude
+-- === Configs rápidas ===
+local TARGET_FOLDER_NAME = "CurrentBosses" -- se não existir, busca no Workspace inteiro
+local HRP_TRANSPARENCY  = 0.6             -- "um pouco visível"
+local MARGIN            = 0.05            -- não atravessar o Handle
+local OSC_MAX           = 0.5             -- amplitude: varia entre 0.0 e 0.5 studs
+local OSC_SPEED         = 2               -- velocidade da oscilação
+local AIMLOCK_SPEED     = 10              -- quão rápido gira pro alvo
 
-            if distance < nearestDistance then
-                nearestHumanoid = humanoidRootPart
-                nearestDistance = distance
-            end
-        end
-    end
+-- ===== Utils =====
 
-    return nearestHumanoid
+local function isPlayerCharacter(model: Instance)
+	return model and model:IsA("Model") and Players:GetPlayerFromCharacter(model) ~= nil
 end
 
-local function updateHitbox()
-    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
-
-    local nearestHumanoidRootPart = getNearestHumanoid()
-
-    if nearestHumanoidRootPart then
-        nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
-        nearestHumanoidRootPart.Transparency = 1
-        nearestHumanoidRootPart.CanCollide = false
-        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.9)
-    end
+local function iterNPCs()
+	local root = workspace:FindFirstChild(TARGET_FOLDER_NAME) or workspace
+	local list = {}
+	for _, m in ipairs(root:GetDescendants()) do
+		if m:IsA("Model") and m:FindFirstChild("Humanoid") and m:FindFirstChild("HumanoidRootPart") then
+			if not isPlayerCharacter(m) then
+				table.insert(list, m)
+			end
+		end
+	end
+	return list
 end
 
-local function resetHitbox()
-    for _, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
-            v.Size = Vector3.new(2, 2, 1)
-            v.Transparency = 0
-            v.CanCollide = true
-        end
-    end
+local function getEquippedHandle(char: Model)
+	if not char then return end
+	local tool = char:FindFirstChildOfClass("Tool")
+	if tool and tool:FindFirstChild("Handle") and tool.Handle:IsA("BasePart") then
+		return tool.Handle, tool
+	end
 end
 
-player.CharacterAdded:Connect(function(newCharacter)
-    character = newCharacter
-    resetHitbox()
-end)
+-- Salva/restaura estado original dos HRPs
+local Original = {} :: {[BasePart]: {CFrame: CFrame, Size: Vector3, Transparency: number, CanCollide: boolean, CollisionGroupId: number, CastShadow: boolean}}
 
-runService.RenderStepped:Connect(updateHitbox)
-end)
-
-Section:NewButton("Kill Aura for Small Weapons", "If the other one didn't work, try this one", function()
-local x = 15
-local y = 15
-local z = 15
-local searchRadius = 200
-
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local runService = game:GetService("RunService")
-
-local function getNearestHumanoid()
-    local nearestHumanoid = nil
-    local nearestDistance = math.huge
-    local characterPosition = character.HumanoidRootPart.Position
-
-    for _, v in pairs(workspace:FindPartsInRegion3(Region3.new(
-        characterPosition - Vector3.new(searchRadius, searchRadius, searchRadius),
-        characterPosition + Vector3.new(searchRadius, searchRadius, searchRadius)
-    ), nil, math.huge)) do
-        local parent = v.Parent
-        if parent and parent:FindFirstChild("Humanoid") and parent:FindFirstChild("HumanoidRootPart") and parent.Name ~= player.Name and parent.Name ~= "ParasyteForm" then
-            local humanoidRootPart = parent.HumanoidRootPart
-            local distance = (humanoidRootPart.Position - characterPosition).Magnitude
-
-            if distance < nearestDistance then
-                nearestHumanoid = humanoidRootPart
-                nearestDistance = distance
-            end
-        end
-    end
-
-    return nearestHumanoid
+local function ensureSaved(hrp: BasePart)
+	if not Original[hrp] then
+		Original[hrp] = {
+			CFrame = hrp.CFrame,
+			Size = hrp.Size,
+			Transparency = hrp.Transparency,
+			CanCollide = hrp.CanCollide,
+			CollisionGroupId = hrp.CollisionGroupId,
+			CastShadow = hrp.CastShadow,
+		}
+	end
 end
 
-local function updateHitbox()
-    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
-
-    local nearestHumanoidRootPart = getNearestHumanoid()
-
-    if nearestHumanoidRootPart then
-        nearestHumanoidRootPart.Size = Vector3.new(x, y, z)
-        nearestHumanoidRootPart.Transparency = 1
-        nearestHumanoidRootPart.CanCollide = false
-        nearestHumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -x / 1.5)
-    end
+local function restoreAll()
+	for hrp, o in pairs(Original) do
+		if hrp and hrp.Parent then
+			hrp.CFrame = o.CFrame
+			hrp.Size = o.Size
+			hrp.Transparency = o.Transparency
+			hrp.CanCollide = o.CanCollide
+			hrp.CollisionGroupId = o.CollisionGroupId
+			hrp.CastShadow = o.CastShadow
+		end
+	end
+	table.clear(Original)
 end
 
-local function resetHitbox()
-    for _, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("BasePart") and v.Name == "HumanoidRootPart" and v.Transparency == 1 and not v.CanCollide then
-            v.Size = Vector3.new(2, 2, 1)
-            v.Transparency = 0
-            v.CanCollide = true
-        end
-    end
+-- Encontra NPC mais próximo do Handle
+local function closestNPCtoHandle(handle: BasePart)
+	local bestModel, bestHrp, bestDist = nil, nil, math.huge
+	for _, npc in ipairs(iterNPCs()) do
+		local hrp = npc:FindFirstChild("HumanoidRootPart")
+		if hrp and hrp:IsA("BasePart") then
+			local d = (hrp.Position - handle.Position).Magnitude
+			if d < bestDist then
+				bestDist = d
+				bestModel, bestHrp = npc, hrp
+			end
+		end
+	end
+	return bestModel, bestHrp
 end
 
-player.CharacterAdded:Connect(function(newCharacter)
-    character = newCharacter
-    resetHitbox()
+-- Escala proporcionalmente e posiciona para encostar no Handle com offset oscilante
+local function extendProportionally(hrp: BasePart, handle: BasePart)
+	ensureSaved(hrp)
+
+	-- Estado "sem colisão" e levemente visível
+	hrp.CanCollide = false
+	hrp.Transparency = HRP_TRANSPARENCY
+	hrp.CastShadow = false
+
+	local center = hrp.Position
+	local toHandle = handle.Position - center
+	local dist = math.max(toHandle.Magnitude, 1e-3)
+	local dir = toHandle.Unit
+
+	-- fator proporcional (mesmo k para X,Y,Z)
+	local cur = hrp.Size
+	local targetHalf = math.max(dist - MARGIN, 0.01)
+	local k = math.max(1, (targetHalf * 2) / cur.Z)
+	local newSize = cur * k
+
+	-- Orienta a caixa "olhando" pro Handle
+	local look = CFrame.new(center, handle.Position)
+
+	-- ==== OFFSET OSCILANTE 0.0 ↔ 0.5 ====
+	local t = os.clock() * OSC_SPEED
+	local oscillation = (math.sin(t) + 1) * 0.5 * OSC_MAX
+	-- empurra levemente PARA FRENTE (se quiser para trás, troque '-' por '+')
+	local newCenter = handle.Position - dir * (newSize.Z/2 + MARGIN - oscillation)
+
+	hrp.Size = newSize
+	hrp.CFrame = CFrame.new(newCenter) * CFrame.fromMatrix(Vector3.new(), look.XVector, look.YVector, look.ZVector)
+end
+
+-- ===== Loop enquanto equipado + aimlock =====
+
+local running = false
+local heartbeatConn: RBXScriptConnection? = nil
+local toolConns: {RBXScriptConnection} = {}
+
+local function stopLoop(char: Model)
+	running = false
+	if heartbeatConn then heartbeatConn:Disconnect() end
+	for _, c in ipairs(toolConns) do c:Disconnect() end
+	table.clear(toolConns)
+
+	local hum: Humanoid? = char and char:FindFirstChildOfClass("Humanoid")
+	if hum then hum.AutoRotate = true end
+	restoreAll()
+end
+
+local function startLoop(char: Model, tool: Tool, handle: BasePart)
+	if running then return end
+	running = true
+
+	-- Aimlock suave
+	local hum: Humanoid? = char and char:FindFirstChildOfClass("Humanoid")
+	if hum then hum.AutoRotate = false end
+
+	heartbeatConn = RunService.Heartbeat:Connect(function(dt)
+		if not running or not handle or not handle.Parent then
+			stopLoop(char)
+			return
+		end
+
+		-- Atualiza todas HRPs de NPCs
+		for _, npc in ipairs(iterNPCs()) do
+			local hrp = npc:FindFirstChild("HumanoidRootPart")
+			if hrp and hrp:IsA("BasePart") then
+				extendProportionally(hrp, handle)
+			end
+		end
+
+		-- Aimlock para o NPC mais próximo do Handle
+		local _, targetHRP = closestNPCtoHandle(handle)
+		local root = char:FindFirstChild("HumanoidRootPart")
+		if root and targetHRP then
+			local p0 = root.Position
+			local p1 = targetHRP.Position
+			p1 = Vector3.new(p1.X, p0.Y, p1.Z) -- mantém nível
+			local desired = CFrame.lookAt(p0, p1)
+			local alpha = math.clamp(dt * AIMLOCK_SPEED, 0, 1)
+			root.CFrame = root.CFrame:Lerp(desired, alpha)
+		end
+	end)
+
+	table.insert(toolConns, tool.Unequipped:Connect(function() stopLoop(char) end))
+	table.insert(toolConns, tool.Destroying:Connect(function() stopLoop(char) end))
+end
+
+-- ===== Detecta equipar =====
+
+local function watchCharacter(char: Model)
+	-- já entra equipado?
+	task.defer(function()
+		local handle, tool = getEquippedHandle(char)
+		if handle and tool then startLoop(char, tool, handle) end
+	end)
+
+	char.ChildAdded:Connect(function(child)
+		if child:IsA("Tool") then
+			child.Equipped:Connect(function()
+				local h = child:FindFirstChild("Handle")
+				if h and h:IsA("BasePart") then
+					startLoop(char, child, h)
+				end
+			end)
+			child.Unequipped:Connect(function()
+				stopLoop(char)
+			end)
+		end
+	end)
+end
+
+if LOCAL.Character then watchCharacter(LOCAL.Character) end
+LOCAL.CharacterAdded:Connect(watchCharacter)
+
 end)
 
 runService.RenderStepped:Connect(updateHitbox)
@@ -2710,3 +2791,4 @@ game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
 wait(0.1)
 end
 end)
+
