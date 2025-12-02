@@ -444,7 +444,7 @@ Section:NewButton("Infinity Yield", "Admin commands", function()
 end)
  
 Section:NewButton("Remote SPY", "Remote SPY", function()
-    loadstring(game:HttpGet(('https://raw.githubusercontent.com/exxtremestuffs/SimpleSpySource/master/SimpleSpy.lua'),true))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Octo-Spy/refs/heads/main/Main.lua", true))()
 end)
 
 Section:NewButton("Anti afk", "Don't let the game kick you for staying afk", function()
@@ -2786,5 +2786,6 @@ game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
 wait(0.1)
 end
 end)
+
 
 
