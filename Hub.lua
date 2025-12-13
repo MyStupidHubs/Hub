@@ -444,7 +444,15 @@ Section:NewButton("Infinity Yield", "Admin commands", function()
 end)
  
 Section:NewButton("Remote SPY", "Remote SPY", function()
-    loadstring(game:HttpGet("https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua"))()
+    local owner = "Upbolt"
+local branch = "revision"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
+webImport("init")
+webImport("ui/main")
 end)
 
 Section:NewButton("Anti afk", "Don't let the game kick you for staying afk", function()
@@ -2786,6 +2794,7 @@ game:GetService("ReplicatedStorage").remotes.morphs:FireServer(unpack(args))
 wait(0.1)
 end
 end)
+
 
 
 
